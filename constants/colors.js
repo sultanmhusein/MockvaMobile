@@ -1,0 +1,21 @@
+export default Colors = {
+    primary: "#A2D2FF",
+    secondary: "#BDE0FE",
+    accent: '#FFAFCC',
+    accentLight: '#FFC8DD',
+    white: "#FFFFFF",
+    gray: "#DDD",
+    oldgray: "#BBB",
+    lightgray: "#F6F6F6",
+    darkgray: "#696969",
+    black: "#000",
+    red: "#DB3447",
+    yellow: "#FEBF32",
+    green: "#2FA64D",
+    blue: "#0280FA",
+    background: "#15202B",
+    darkBlue: "#192734",
+    secondayDarkBlue: "#22303C",
+    grayBlue: "#8899A6",
+    whiteCalm: "#FFFFFC"
+};
