@@ -1,25 +1,13 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const getCredential = async () => {
-    return await AsyncStorage.getItem('credential');
+    return await AsyncStorage.multiGet(["sessionId", "accountId"])
 }
 
-export const setCredential = async (key) => {
-    return await AsyncStorage.setItem('credential', key);
+export const setCredential = async ([sessionId, account]) => {
+    return await AsyncStorage.multiSet([["sessionId", sessionId], ["accountId", account]])
 }
 
 export const removeCredential = async () => {
-    return await AsyncStorage.removeItem('credential');
+    return await AsyncStorage.multiRemove(["sessionId", "accountId"])
 }
-
-// export const getAccountId = async () => {
-//     return await AsyncStorage.getItem('accId');
-// }
-
-// export const setAccountId = async (key) => {
-//     return await AsyncStorage.setItem('accId', key);
-// }
-
-// export const removeAccountId = async () => {
-//     return  await AsyncStorage.removeItem('accId');
-// }

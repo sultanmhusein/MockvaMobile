@@ -1,12 +1,12 @@
 import { PROFILE_GET } from "../action/types";
 import { remote } from "../remote/remote";
 
-export const profileGet = (credential, accountId) => {
+export const profileGet = (sessionId, accountId) => {
     try {
         return async dispatch => {
-            console.log("PROF ACT", credential, accountId)
+            console.log("PROF ACT", sessionId, accountId)
             const api = await remote();
-            const dataProfile = await api.profileGet(credential, accountId);
+            const dataProfile = await api.profileGet(sessionId, accountId);
             dispatch({ type: PROFILE_GET, data: dataProfile })
         }
     } catch(error) {

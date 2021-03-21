@@ -7,7 +7,6 @@ const initialState = {
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case PROFILE_GET:
-            console.log("PROFILE======", action.data.data)
             if (action.data.status != 200) {
                 return state;
             } else {

@@ -1,8 +1,7 @@
 // AUTH
 export const AUTH_LOGIN = "AUTH_LOGIN";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
-export const AUTH_SETSESSION = "AUTH_SETSESSION";
-export const AUTH_ID = "AUTH_ID";
+export const AUTH_CREDENTIAL = "AUTH_CREDENTIAL";
 
 // PROFILE
 export const PROFILE_GET = "PROFILE_GET";

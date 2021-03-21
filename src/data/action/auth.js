@@ -1,10 +1,5 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SETSESSION, AUTH_ID } from "./types";
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CREDENTIAL } from "./types";
 import { remote } from "../remote/remote";
-
-export const setUpCredential = credential => ({
-    type: AUTH_SETSESSION,
-    data: credential
-})
 
 export const authLogin = (username, password) => {
     try {
@@ -18,4 +13,9 @@ export const authLogin = (username, password) => {
     }
 }
 
-export const authLogout = (credential) => ({ type: AUTH_LOGOUT, data: credential })
+export const authLogout = (sesionId) => ({ type: AUTH_LOGOUT, data: sesionId })
+
+export const setCredential = ([sessionId, accountId]) => ({
+    type: AUTH_CREDENTIAL,
+    data: [sessionId, accountId]
+})

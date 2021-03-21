@@ -6,7 +6,7 @@ import { useAppComponent, useNavigator, useTheme } from "../Contexts";
 import Fill from "../components/Fill";
 import { connect } from "react-redux";
 import { getCredential } from "../data/local/storage";
-import { setUpCredential } from "../data/action/auth";
+import { setCredential } from "../data/action/auth";
 
 const SplashScreen = (props) => {
     const { navigation, dispatch } = props;
@@ -18,9 +18,10 @@ const SplashScreen = (props) => {
     }, [])
 
     const checkSession = async () => {
-        let data = await getCredential();
-        if (data != null) {
-            await dispatch(setUpCredential(data))
+        let data = await getCredential([]);
+        console.log("ADUH", data)
+        if (data[0][1] != null && data[1][1] != null) {
+            await dispatch(setCredential(data))
             navigation.replace("Main")
         } 
         else {
@@ -69,7 +70,7 @@ const SplashScreen = (props) => {
 
 const mapStateToProps = ({ authReducer }) => {
     return {
-        credential: authReducer.credential
+        // credential: authReducer.credential
     }
 }
 

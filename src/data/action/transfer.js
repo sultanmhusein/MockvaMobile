@@ -2,7 +2,7 @@ import { TRANSFER_INQUIRY, TRANSFER_CONFIRM } from "./types";
 import { remote } from "../remote/remote";
 
 export const transferInquiry = (
-    credential,
+    sesionId,
     accountSrcId,
     accountDstId,
     amount,
@@ -11,7 +11,7 @@ export const transferInquiry = (
         return async (dispatch) => {
             const api = await remote();
             const inquiryTransfer = await api.transferInquiry(
-                credential,
+                sesionId,
                 accountSrcId,
                 accountDstId,
                 amount,
@@ -24,7 +24,7 @@ export const transferInquiry = (
 };
 
 export const transferConfirm = (
-    credential,
+    sesionId,
     accountSrcId,
     accountDstId,
     amount,
@@ -34,7 +34,7 @@ export const transferConfirm = (
         return async (dispatch) => {
             const api = await remote();
             const confirmTransfer = await api.transferConfirm(
-                credential,
+                sesionId,
                 accountSrcId,
                 accountDstId,
                 amount,

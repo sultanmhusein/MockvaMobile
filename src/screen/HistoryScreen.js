@@ -11,14 +11,14 @@ const HistoryScreen = (props) => {
     const { colors, images, styles } = useTheme();
 
     // useEffect(() => {
-    //     getData()
+    //     getCredential()
     // }, [])
 
-    const getData = async () => {
-        if (credential != null) {
-            dispatch(historyGet(credential, accountSrcId))
-        }
-    }
+    // const getCredential = async () => {
+    //     if (credential != null) {
+    //         dispatch(historyGet(credential, accountSrcId))
+    //     }
+    // }
 
     const history = [
         {

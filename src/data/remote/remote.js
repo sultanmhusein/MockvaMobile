@@ -17,24 +17,23 @@ export const remote = async () => {
             { username: username, password: password },
             { headers: null },
         );
-    const authLogout = (_sessionId) =>
+    const authLogout = (sessionId) =>
         api.delete("/rest/auth/logout", null, {
-            headers: { _sessionId: credential },
+            headers: { _sessionId: sessionId },
         });
-    const profileGet = (credential, accountId) => 
-        // console.log("test", credential, accountId)
+    const profileGet = (sessionId, accountId) => 
         api.get(`/rest/account/detail?id=${accountId}`, null, {
-            headers: { _sessionId: credential },
+            headers: { _sessionId: sessionId },
         })
-    const historyGet = (credential, accountSrcId) =>
+    const historyGet = (sessionId, accountSrcId) =>
         api.get(
             "rest/account/transaction/log?accountSrcId=" + accountSrcId,
             null,
             {
-                headers: { _sessionId: credential },
+                headers: { _sessionId: sessionId },
             },
         );
-    const transferInquiry = (credential, accountSrcId, accountDstId, amount) =>
+    const transferInquiry = (sessionId, accountSrcId, accountDstId, amount) =>
         api.post(
             "/rest/account/transaction/transferInquiry",
             {
@@ -42,10 +41,10 @@ export const remote = async () => {
                 accountDstId: accountDstId,
                 amount: amount,
             },
-            { headers: { _sessionId: credential } },
+            { headers: { _sessionId: sessionId } },
         );
     const transferConfirm = (
-        credential,
+        sessionId,
         accountSrcId,
         accountDstId,
         amount,
@@ -59,7 +58,7 @@ export const remote = async () => {
                 amount: amount,
                 inquiryId: inquiryId,
             },
-            { headers: { _sessionId: credential } },
+            { headers: { _sessionId: sessionId } },
         );
 
     return {

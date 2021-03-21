@@ -6,19 +6,17 @@ import { profileGet } from "../data/action/profile";
 import { connect } from "react-redux";
 
 const MainScreen = (props) => {
-    const { navigation, profile, dispatch, credential, accountId } = props;
+    const { navigation, profile, dispatch, credential, accountId, sessionId, } = props;
     const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
     
-    console.log("***", credential, accountId)
-    console.log(">>>>", profile)
     useEffect(() => {
-        getData()
+        getCredential()
     }, [])
 
-    const getData = async () => {
-        if (credential != null && accountId != null) {
-            dispatch(profileGet(credential, accountId))
+    const getCredential = async () => {
+        if (sessionId != null && accountId != null) {
+            dispatch(profileGet(sessionId, accountId))
         }
     }
 
@@ -35,11 +33,11 @@ const MainScreen = (props) => {
                     }}>
                     <View style={{ backgroundColor: colors.blue, padding: 16, borderRadius: 8 }}>
                         <Text style={{ color: colors.white }}>Account Number</Text>
-                        {/* <Text style={{ color: colors.white }}>{profile.id}</Text> */}
+                        <Text style={{ color: colors.white }}>{profile != null ? profile.id : ""}</Text>
                         <Text style={{ color: colors.white }}>Name</Text>
-                        {/* <Text style={{ color: colors.white }}>{profile.name}</Text> */}
+                        <Text style={{ color: colors.white }}>{profile != null ? profile.name : ""}</Text>
                         <Text style={{ color: colors.white }}>Balance</Text>
-                        {/* <Text style={{ color: colors.white }}>{profile.balance}</Text> */}
+                        <Text style={{ color: colors.white }}>{profile != null ? profile.balance : ""}</Text>
                     </View>
                 </View>
             }
@@ -50,6 +48,7 @@ const MainScreen = (props) => {
 const mapStateToProps = ({ authReducer, profileReducer }) => {
     return {
         credential: authReducer.credential,
+        sessionId: authReducer.sessionId,
         accountId: authReducer.accountId,
         profile: profileReducer.profile
     }
