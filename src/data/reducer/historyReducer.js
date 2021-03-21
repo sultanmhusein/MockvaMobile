@@ -1,19 +1,18 @@
-import { PROFILE_GET } from "../action/types";
+import { HISTORY_GET } from "../action/types";
 
 const initialState = {
-    profile: null
+    history: null
 }
 
-const profileReducer = (state = initialState, action) => {
+const historyReducer = (state = initialState, action) => {
     switch (action.type) {
-        case PROFILE_GET:
-            console.log("PROFILE======", action.data.data)
+        case HISTORY_GET:
             if (action.data.status != 200) {
                 return state;
             } else {
                 return {
                     ...state,
-                    profile: action.data.data
+                    history: action.data.data
                 }
             }
         default:
@@ -21,4 +20,4 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 
-export default profileReducer;
+export default historyReducer;

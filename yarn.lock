@@ -1703,6 +1703,14 @@
     "normalize-path" "^3.0.0"
     "picomatch" "^2.0.4"
 
+"apisauce@^2.0.1":
+  "integrity" "sha512-mJBw3pKmtfVoP6oifnf7/iRJQtNkVb6GkYsVOXN2pidootj1mhGBtzYHOX9FVBzAz5QV2GMu8IJtiNIgZ44kHQ=="
+  "resolved" "https://registry.npmjs.org/apisauce/-/apisauce-2.0.1.tgz"
+  "version" "2.0.1"
+  dependencies:
+    "axios" "^0.21.1"
+    "ramda" "^0.25.0"
+
 "argparse@^1.0.7":
   "integrity" "sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg=="
   "resolved" "https://registry.npmjs.org/argparse/-/argparse-1.0.10.tgz"
@@ -6252,6 +6260,11 @@
     "decode-uri-component" "^0.2.0"
     "split-on-first" "^1.0.0"
     "strict-uri-encode" "^2.0.0"
+
+"ramda@^0.25.0":
+  "integrity" "sha512-GXpfrYVPwx3K7RQ6aYT8KPS8XViSXUVJT1ONhoKPE9VAleW42YE+U+8VEyGWt41EnEQW7gwecYJriTI0pKoecQ=="
+  "resolved" "https://registry.npmjs.org/ramda/-/ramda-0.25.0.tgz"
+  "version" "0.25.0"
 
 "range-parser@~1.2.1":
   "integrity" "sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg=="

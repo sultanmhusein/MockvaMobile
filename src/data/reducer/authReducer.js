@@ -1,5 +1,5 @@
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SETSESSION } from "../action/types";
-import { setCredential, removeCredential } from "../local/storage";
+import { setCredential, removeCredential, setAccountId, removeAccountId } from "../local/storage";
 
 const initialState = {
     credential: null,
@@ -14,10 +14,12 @@ const authReducer = (state = initialState, action) => {
             console.group("AUTH SETSESSION", action.data)
             return {
                 ...state,
-                credential: action.data
+                credential: action.data,
+                // accountId: action.data
             }
         case AUTH_LOGOUT:
             removeCredential();
+            // removeAccountId();
             console.log("HEHE")
             return initialState;
         case AUTH_LOGIN:
@@ -29,6 +31,7 @@ const authReducer = (state = initialState, action) => {
                 }
             } else {
                 setCredential(action.data.data.id);
+                // setAccountId(action.data.data.accountId);
                 console.log("TERSIMPAN", action.data.data.id)
                 return {
                     ...state,

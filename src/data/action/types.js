@@ -2,6 +2,14 @@
 export const AUTH_LOGIN = "AUTH_LOGIN";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const AUTH_SETSESSION = "AUTH_SETSESSION";
+export const AUTH_ID = "AUTH_ID";
 
 // PROFILE
 export const PROFILE_GET = "PROFILE_GET";
+
+// HISTORY
+export const HISTORY_GET = "HISTORY_GET";
+
+// TRANSFER
+export const TRANSFER_INQUIRY = "TRANSFER_INQUIRY";
+export const TRANSFER_CONFIRM = "TRANSFER_CONFIRM";

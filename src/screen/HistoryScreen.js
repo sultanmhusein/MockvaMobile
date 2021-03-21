@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import { useAppComponent, useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
+import { historyGet } from "../data/action/history";
+import { connect } from "react-redux";
 
 const HistoryScreen = (props) => {
-    const { navigation } = props;
+    const { navigation, dispatch, credential, accountSrcId } = props;
     const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
+
+    // useEffect(() => {
+    //     getData()
+    // }, [])
+
+    const getData = async () => {
+        if (credential != null) {
+            dispatch(historyGet(credential, accountSrcId))
+        }
+    }
+
     const history = [
         {
             id: "01",
@@ -85,4 +98,13 @@ const HistoryScreen = (props) => {
     )
 }
 
-export default HistoryScreen;
+const mapStateToProps = ({ authReducer, profileReducer }) => {
+    return {
+        credential: authReducer.credential,
+        accountId: authReducer.accountId,
+    }
+}
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryScreen);

@@ -141,11 +141,6 @@ const Routes = ({ initialParams, initialRoute }) => {
                 options={{ headerBackTitle: "Kembali", headerTitle: "Transfer" }}
             />
             <Stack.Screen
-                name="Bonus"
-                component={require("./BonusScreen").default}
-                options={{ headerShown: false, headerBackTitle: "Kembali" }}
-            />
-            <Stack.Screen
                 name="DetailProduct"
                 component={require("./DetailProductScreen").default}
                 options={{ headerShown: true, headerBackTitle: "Kembali" }}

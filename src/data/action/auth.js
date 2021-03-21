@@ -1,4 +1,4 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SETSESSION } from "./types";
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SETSESSION, AUTH_ID } from "./types";
 import { remote } from "../remote/remote";
 
 export const setUpCredential = credential => ({

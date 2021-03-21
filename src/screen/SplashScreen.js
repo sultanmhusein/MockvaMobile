@@ -9,36 +9,21 @@ import { getCredential } from "../data/local/storage";
 import { setUpCredential } from "../data/action/auth";
 
 const SplashScreen = (props) => {
-    const { navigation, dispatch, credential } = props;
-    const { appVersion, appName, navigator } = useAppComponent();
+    const { navigation, dispatch } = props;
+    const { appVersion, appName } = useAppComponent();
     const { colors, images } = useTheme();
-
-    // console.log("cccccccc ", credential)
-    console.log("gggggggg", getCredential())
 
     useEffect(() => {
         checkSession()
-        // const data = getCredential();
-        // console.log("DATA SPLASH", data)
-        // if (data != null) {
-        //     dispatch(setUpCredential(data))
-        //     navigation.replace("Main")
-        // } 
-        // else {
-        //     console.log("DATANYA", data)
-        //     navigation.replace("Login")
-        // }
     }, [])
 
     const checkSession = async () => {
         let data = await getCredential();
         if (data != null) {
             await dispatch(setUpCredential(data))
-            console.log("DATANYA KE MAIN", data)
             navigation.replace("Main")
         } 
         else {
-            console.log("DATANYA KE LOGIN", data)
             navigation.replace("Login")
         }
     }

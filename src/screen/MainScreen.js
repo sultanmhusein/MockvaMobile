@@ -11,9 +11,16 @@ const MainScreen = (props) => {
     const { colors, images, styles } = useTheme();
     
     console.log("***", credential, accountId)
-    // useEffect(() => {
-    //     dispatch(profileGet(credential, accountId))
-    // }, [])
+    console.log(">>>>", profile)
+    useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = async () => {
+        if (credential != null && accountId != null) {
+            dispatch(profileGet(credential, accountId))
+        }
+    }
 
 
     return (
@@ -28,8 +35,11 @@ const MainScreen = (props) => {
                     }}>
                     <View style={{ backgroundColor: colors.blue, padding: 16, borderRadius: 8 }}>
                         <Text style={{ color: colors.white }}>Account Number</Text>
+                        {/* <Text style={{ color: colors.white }}>{profile.id}</Text> */}
                         <Text style={{ color: colors.white }}>Name</Text>
+                        {/* <Text style={{ color: colors.white }}>{profile.name}</Text> */}
                         <Text style={{ color: colors.white }}>Balance</Text>
+                        {/* <Text style={{ color: colors.white }}>{profile.balance}</Text> */}
                     </View>
                 </View>
             }
