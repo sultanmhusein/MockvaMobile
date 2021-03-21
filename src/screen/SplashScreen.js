@@ -1,76 +1,78 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Scaffhold from "../components/Scaffhold";
-import { Text, View } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { Text, View, Image } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { useAppComponent, useNavigator, useTheme } from "../Contexts";
-import Colors from "../../constants/colors";
 import Fill from "../components/Fill";
+import { connect } from "react-redux";
+import { getCredential } from "../data/local/storage";
+import { setUpCredential } from "../data/action/auth";
 
 const SplashScreen = (props) => {
-    const { navigation } = props;
+    const { navigation, dispatch, credential } = props;
     const { appVersion, appName, navigator } = useAppComponent();
-    const { colors } = useTheme();
+    const { colors, images } = useTheme();
+
+    // console.log("cccccccc ", credential)
+    console.log("gggggggg", getCredential())
+
+    useEffect(() => {
+        checkSession()
+        // const data = getCredential();
+        // console.log("DATA SPLASH", data)
+        // if (data != null) {
+        //     dispatch(setUpCredential(data))
+        //     navigation.replace("Main")
+        // } 
+        // else {
+        //     console.log("DATANYA", data)
+        //     navigation.replace("Login")
+        // }
+    }, [])
+
+    const checkSession = async () => {
+        let data = await getCredential();
+        if (data != null) {
+            await dispatch(setUpCredential(data))
+            console.log("DATANYA KE MAIN", data)
+            navigation.replace("Main")
+        } 
+        else {
+            console.log("DATANYA KE LOGIN", data)
+            navigation.replace("Login")
+        }
+    }
+
     return (
         <Scaffhold
+            isPageCanScroll={false}
             body={
                 <View
                     style={{
                         justifyContent: "center",
                         alignItems: "center",
-                        backgroundColor: Colors.background,
+                        backgroundColor: colors.white,
                         flex: 1,
                         padding: 16,
                     }}>
                     <Fill />
 
                     <Animatable.View
-                        duration={2800}
-                        animation="logoAnimation"
-                        onAnimationEnd={() =>
-                            setTimeout(
-                                () => navigation.dispatch(navigator.goToMain),
-                                1000,
-                            )
-                        }>
-                        <Icon
-                            name="react"
-                            size={100}
-                            color={Colors.red}
-                        />
+                        duration={1000}
+                        animation="blink"
+                        >
+                        <Image source={images.logo} style={{ width: 160, height: 160 }} />
                     </Animatable.View>
 
-                    <Animatable.Text
-                        dutaion={400}
-                        animation="blink"
-                        style={{
-                            marginTop: 8,
-                            fontSize: 20,
-                            fontWeight: "bold",
-                            color: Colors.red,
-                        }}>
-                        Sharingan
-                    </Animatable.Text>
-
-                    <Animatable.Text
-                        dutaion={400}
-                        animation="blink"
-                        style={{
-                            marginTop: 8,
-                            fontSize: 12,
-                            fontWeight: "bold",
-                            color: Colors.red,
-                        }}>
-                        {appName}
-                    </Animatable.Text>
+                    <Text style={{ marginTop: 48, fontSize: 24, color: colors.blue }}>{appName}</Text>
 
                     <Fill />
 
                     <Text
                         style={{
-                            marginBottom: 8,
+                            marginBottom: 32,
                             fontSize: 16,
-                            color: Colors.red,
+                            color: colors.blue,
                         }}>
                         Ver {appVersion}
                     </Text>
@@ -80,4 +82,12 @@ const SplashScreen = (props) => {
     );
 };
 
-export default SplashScreen;
+const mapStateToProps = ({ authReducer }) => {
+    return {
+        credential: authReducer.credential
+    }
+}
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);

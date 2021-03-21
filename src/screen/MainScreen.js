@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useAppComponent, useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
+import { profileGet } from "../data/action/profile";
+import { connect } from "react-redux";
 
 const MainScreen = (props) => {
-    const { navigation } = props;
+    const { navigation, profile, dispatch, credential, accountId } = props;
     const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
+    
+    console.log("***", credential, accountId)
+    // useEffect(() => {
+    //     dispatch(profileGet(credential, accountId))
+    // }, [])
+
 
     return (
         <Scaffhold
@@ -29,4 +37,14 @@ const MainScreen = (props) => {
     );
 };
 
-export default MainScreen;
+const mapStateToProps = ({ authReducer, profileReducer }) => {
+    return {
+        credential: authReducer.credential,
+        accountId: authReducer.accountId,
+        profile: profileReducer.profile
+    }
+}
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

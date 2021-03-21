@@ -1,16 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useAppComponent, useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { TextInput, Button } from "react-native-paper";
+import { connect } from "react-redux";
+import { authLogin } from "../data/action/auth";
 
 const LoginScreen = (props) => {
-    const { navigation } = props;
+    const { navigation, dispatch, credential, sessionStatus } = props;
     const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("USER040905");
+    const [password, setPassword] = useState("QYd2991");
     const [isRequesting, setIsRequesting] = useState(false);
+    const setRequesting = requesting => setIsRequesting(requesting);
+
+    const Login = async () => {
+        setRequesting(true);
+        await dispatch(authLogin(username, password))
+    }
+
+    useEffect(() => {
+        setRequesting(false);
+        if (credential != null && sessionStatus == 'ACTIVE') {
+            navigation.replace('Main')
+        } else if (credential != null) {
+            console.log("LOGIN GAGAL")
+            
+        }
+    }, [credential])
 
     return (
         <Scaffhold 
@@ -43,7 +61,7 @@ const LoginScreen = (props) => {
                         style={{ marginTop: 64 }}
                         // loading={isRequesting}
                         // disabled={isRequesting || username == '' || password == ''}
-                        onPress={() => navigation.replace("Main")}>
+                        onPress={Login}>
                         Login
                     </Button>
                 </View>
@@ -52,4 +70,13 @@ const LoginScreen = (props) => {
     )
 }
 
-export default LoginScreen;
+const mapStateToProps = ({ authReducer }) => {
+    return {
+        credential: authReducer.credential,
+        sessionStatus: authReducer.sessionStatus
+    }
+}
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

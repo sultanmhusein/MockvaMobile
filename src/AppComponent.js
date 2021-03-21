@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppComponentProvider } from "./Contexts";
 import Routes from "./screen/Routes";
-import navigator from "./navigator";
+// import navigator from "./navigator";
 import NetInfo from "@react-native-community/netinfo";
 import DeviceInfo from "react-native-device-info";
 import Globalfont from "react-native-global-font";
@@ -38,8 +38,8 @@ const AppComponent = (props) => {
         networkStatus: networkStatus,
         keyboardShown: keyboardShown,
         appVersion: DeviceInfo.getVersion(),
-        appName: "React Native Base Thunk",
-        navigator: navigator
+        appName: "Mockva",
+        // navigator: navigator
     }}>
         <NavigationContainer>
             <Routes initialRoute="splash" />
