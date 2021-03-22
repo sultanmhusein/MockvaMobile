@@ -11,9 +11,9 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case AUTH_CREDENTIAL:
-            console.log("AUTH CRED", action.data)
-            console.log("SESSION ID", action.data[0][1])
-            console.log("ACCOUNT ID", action.data[1][1])
+            // console.log("AUTH CRED", action.data)
+            // console.log("SESSION ID", action.data[0][1])
+            // console.log("ACCOUNT ID", action.data[1][1])
             return {
                 ...state,
                 sessionId: action.data[0][1],

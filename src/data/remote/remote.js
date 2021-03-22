@@ -26,6 +26,7 @@ export const remote = async () => {
             headers: { _sessionId: sessionId },
         })
     const historyGet = (sessionId, accountSrcId) =>
+    // console.log("REMOTE", sessionId, accountSrcId)
         api.get(
             "rest/account/transaction/log?accountSrcId=" + accountSrcId,
             null,

@@ -4,23 +4,26 @@ import { useAppComponent, useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { historyGet } from "../data/action/history";
 import { connect } from "react-redux";
+import { currencyFormat } from "../../constants/helper";
 
 const HistoryScreen = (props) => {
-    const { navigation, dispatch, credential, accountSrcId } = props;
+    const { navigation, dispatch, sessionId, accountSrcId, history } = props;
     const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
 
-    // useEffect(() => {
-    //     getCredential()
-    // }, [])
+    useEffect(() => {
+        getCredential()
+    }, [])
 
-    // const getCredential = async () => {
-    //     if (credential != null) {
-    //         dispatch(historyGet(credential, accountSrcId))
-    //     }
-    // }
+    const getCredential = async () => {
+        if (sessionId != null) {
+            dispatch(historyGet(sessionId, accountSrcId))
+        }
+    }
 
-    const history = [
+    console.log("SCREN HIS", history)
+
+    const historyi = [
         {
             id: "01",
             date: "2020-04-03",
@@ -73,19 +76,19 @@ const HistoryScreen = (props) => {
                                     <View>
                                         <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
                                             <Text>Date</Text>
-                                            <Text>{item.date}</Text>
+                                            <Text>{item.transactionTimestamp}</Text>
                                         </View>
                                         <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
                                             <Text>Amount</Text>
-                                            <Text>{item.amount}</Text>
+                                            <Text>{currencyFormat(parseInt(item.amount))}</Text>
                                         </View>
                                         <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
                                             <Text>Ref</Text>
-                                            <Text>{item.ref}</Text>
+                                            <Text>{item.clientRef}</Text>
                                         </View>
                                         <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
                                             <Text>Destination</Text>
-                                            <Text>{item.destination}</Text>
+                                            <Text>{item.accountDstId}</Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
@@ -98,10 +101,11 @@ const HistoryScreen = (props) => {
     )
 }
 
-const mapStateToProps = ({ authReducer, profileReducer }) => {
+const mapStateToProps = ({ authReducer, historyReducer }) => {
     return {
-        credential: authReducer.credential,
-        accountId: authReducer.accountId,
+        sessionId: authReducer.sessionId,
+        accountSrcId: authReducer.accountId,
+        history: historyReducer.history
     }
 }
 
