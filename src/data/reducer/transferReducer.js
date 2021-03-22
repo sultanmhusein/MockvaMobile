@@ -1,38 +1,54 @@
 import { TRANSFER_INQUIRY, TRANSFER_CONFIRM } from "../action/types";
 
 const initialState = {
-    transferInquiry: null,
-    transferConfirm: null,
-    message: null
+    messageError: null,
+    accountSrcId: null,
+    accountSrcName: null,
+    accountDstId: null,
+    accountDstName: null,
+    amount: null,
+    inquiryId: null,
+    transactionTimestamp: null,
+    clientRef: null
 }
 
 const transferReducer = (state = initialState, action) => {
     switch (action.type) {
         case TRANSFER_INQUIRY:
-            console.log("TF INQ", action.data)
+            console.log("TF INQ", action.data.data)
             if (action.data.status != 200) {
+                console.log("XXXXXXXXX", action.data.data)
                 return {
                     ...state,
-                    message: "GAGAL INQ :("
+                    messageError: action.data.data 
                 }
             } else {
                 console.log("INQ MUNCUL", action.data.data)
+                console.log("INQ MUNCUL", action.data.data.accountDstId)
                 return {
                     ...state,
-                    transferInquiry: action.data.data
+                    accountSrcId: action.data.data.accountSrcId,
+                    accountSrcName: action.data.data.accountSrcName,
+                    accountDstId: action.data.data.accountDstId,
+                    accountDstName: action.data.data.accountDstName,
+                    amount: action.data.data.amount,
+                    inquiryId: action.data.data.inquiryId
                 }
             }
         case TRANSFER_CONFIRM:
+            console.log("TF CF", action.data.data)
             if (action.data.status != 200) {
-                return {
-                    ...state,
-                    message: "GAGAL INQ CFR :("
-                }
+                console.log("****")
+                // return {
+                //     ...state,
+                //     message: "GAGAL INQ CFR :("
+                // }
             } else {
                 console.log("INQ CFR MUNCUL", action.data.data)
                 return {
                     ...state,
-                    transferConfirm: action.data.data
+                    transactionTimestamp: action.data.data.transactionTimestamp,
+                    clientRef: action.data.data.clientRef
                 }
             }
         default:

@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { authLogin } from "../data/action/auth";
 
 const LoginScreen = (props) => {
-    const { navigation, dispatch, credential, sessionStatus, sessionId, accountId } = props;
+    const { navigation, dispatch, sessionStatus, sessionId } = props;
     const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
     const [username, setUsername] = useState("USER040905");
@@ -20,8 +20,6 @@ const LoginScreen = (props) => {
         await dispatch(authLogin(username, password))
     }
 
-    console.log("LOGINNNNNNNN", sessionId, accountId)
-
     useEffect(() => {
         setRequesting(false);
         if (sessionId != null && sessionStatus == 'ACTIVE') {
@@ -31,15 +29,6 @@ const LoginScreen = (props) => {
             
         }
     }, [sessionId])
-    // useEffect(() => {
-    //     setRequesting(false);
-    //     if (credential != null && sessionStatus == 'ACTIVE') {
-    //         navigation.replace('Main')
-    //     } else if (credential != null) {
-    //         console.log("LOGIN GAGAL")
-            
-    //     }
-    // }, [credential])
 
     return (
         <Scaffhold 
@@ -83,10 +72,8 @@ const LoginScreen = (props) => {
 
 const mapStateToProps = ({ authReducer }) => {
     return {
-        credential: authReducer.credential,
         sessionStatus: authReducer.sessionStatus,
         sessionId: authReducer.sessionId,
-        accountId: authReducer.accountId
     }
 }
 

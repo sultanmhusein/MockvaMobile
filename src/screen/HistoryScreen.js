@@ -21,39 +21,8 @@ const HistoryScreen = (props) => {
         }
     }
 
-    console.log("SCREN HIS", history)
-
-    const historyi = [
-        {
-            id: "01",
-            date: "2020-04-03",
-            amount: "1.000.000",
-            ref: "1234123131",
-            destination: "0123131313"
-        },
-        {
-            id: "02",
-            date: "2020-04-01",
-            amount: "1.000.000",
-            ref: "1234123131",
-            destination: "0123131313"
-        },
-        {
-            id: "03",
-            date: "2020-04-03",
-            amount: "1.000.000",
-            ref: "1234123131",
-            destination: "0123131313"
-        },
-        {
-            id: "04",
-            date: "2020-04-03",
-            amount: "1.000.000",
-            ref: "1234123131",
-            destination: "0123131313"
-        },
-    ]
-    
+    // console.log("SCREN HIS", history)
+    // const historyR = history.reverse()
     return (
         <Scaffhold 
             isPageCanScroll={false}
@@ -67,6 +36,10 @@ const HistoryScreen = (props) => {
                         data={history}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({item, index}) => {
+                            const historyR = history.reverse();
+                            return historyR.map((item, index) => {
+
+                            
                             return (
                                 <TouchableOpacity
                                     style={{
@@ -93,6 +66,7 @@ const HistoryScreen = (props) => {
                                     </View>
                                 </TouchableOpacity>
                             )
+                        })
                         }}
                     />
                 </View>

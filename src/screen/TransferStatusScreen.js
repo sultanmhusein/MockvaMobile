@@ -3,16 +3,12 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { useAppComponent, useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
+import { connect } from "react-redux";
 
 const TransferStatusScreen = (props) => {
-    const { navigation } = props;
+    const { navigation, accountSrcId, accountSrcName, accountDstId, accountDstName, amount, transactionTimestamp, clientRef } = props;
     const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
-    const [accountSource, setAccountSource] = useState("");
-    const [accountSourceName, setAccountSourceName] = useState("");
-    const [accountDestination, setAccountDestination] = useState("");
-    const [accountDestinationName, setAccountDestinationName] = useState("");
-    const [amount, setAmount] = useState("");
     const [isRequesting, setIsRequesting] = useState(false);
 
     console.log("HAHA");
@@ -28,12 +24,38 @@ const TransferStatusScreen = (props) => {
                     }}>
                     <SafeAreaView>
                         <ScrollView>
-                            <Text>Account Source</Text>
-                            <Text>Account Source Name</Text>
-                            <Text>Account Destination</Text>
-                            <Text>Account Destination Name</Text>
-                            <Text>Amount</Text>
-                            <Text>STATUS</Text>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Account Source</Text>
+                                <Text>{accountSrcId != null ? accountSrcId : ""}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Account Source Name</Text>
+                                <Text>{accountSrcName != null ? accountSrcName : ""}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Account Destination</Text>
+                                <Text>{accountDstId != null ? accountDstId : ""}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Account Destination Name</Text>
+                                <Text>{accountDstName != null ? accountDstName : ""}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Amount</Text>
+                                <Text>{amount != null ? amount : ""}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Reference Number</Text>
+                                <Text>{clientRef != null ? clientRef : ""}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Timestamp</Text>
+                                <Text>{transactionTimestamp != null ? transactionTimestamp : ""}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Status</Text>
+                                <Text>Success</Text>
+                            </View>
                         </ScrollView>
                     </SafeAreaView>
                     <Button
@@ -61,4 +83,19 @@ const TransferStatusScreen = (props) => {
     );
 };
 
-export default TransferStatusScreen;
+const mapStateToProps = ({ authReducer, transferReducer }) => {
+    return {
+        sessionId: authReducer.sessionId,
+        accountSrcId: transferReducer.accountSrcId,
+        accountSrcName: transferReducer.accountSrcName,
+        accountDstId: transferReducer.accountDstId,
+        accountDstName: transferReducer.accountDstName,
+        amount: transferReducer.amount,
+        transactionTimestamp: transferReducer.transactionTimestamp,
+        clientRef: transferReducer.clientRef
+    }
+}
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransferStatusScreen);

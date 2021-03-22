@@ -32,7 +32,6 @@ const authReducer = (state = initialState, action) => {
                 setCredential([action.data.data.id, action.data.data.accountId]);
                 return {
                     ...state,
-                    credential: action.data.data.id,
                     sessionId: action.data.data.id,
                     accountId: action.data.data.accountId,
                     sessionStatus: action.data.data.sessionStatus

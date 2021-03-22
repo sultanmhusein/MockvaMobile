@@ -1,21 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { useAppComponent, useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
+import { connect } from "react-redux";
+import { transferConfirm } from "../data/action/transfer";
 
 const TransferInquiryScreen = (props) => {
-    const { navigation } = props;
+    const { navigation, dispatch, sessionId, accountSrcId, accountSrcName, accountDstId, accountDstName, amount, inquiryId } = props;
     const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
-    const [accountSource, setAccountSource] = useState("");
-    const [accountSourceName, setAccountSourceName] = useState("");
-    const [accountDestination, setAccountDestination] = useState("");
-    const [accountDestinationName, setAccountDestinationName] = useState("");
-    const [amount, setAmount] = useState("");
     const [isRequesting, setIsRequesting] = useState(false);
+    const setRequesting = requesting => setIsRequesting(requesting);
 
-    console.log("HAHA");
+    const Transfer = async () => {
+        // if (sessionId != null && accountSrcId != null && accountDstId != null && amount != null && inquiryId != null) {
+            // setRequesting(true);
+            await dispatch(transferConfirm(sessionId, accountSrcId, accountDstId, amount, inquiryId))
+            // setRequesting(false);
+            navigation.replace("TransferStatus")
+            console.log("BERHASIL", inquiryId)
+        // }
+    }
+
+    console.log("WKWKKW", accountDstName, amount, inquiryId);
     return (
         <Scaffhold
             isPageCanScroll={false}
@@ -28,11 +36,26 @@ const TransferInquiryScreen = (props) => {
                     }}>
                     <SafeAreaView>
                         <ScrollView>
-                            <Text>Account Source</Text>
-                            <Text>Account Source Name</Text>
-                            <Text>Account Destination</Text>
-                            <Text>Account Destination Name</Text>
-                            <Text>Amount</Text>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Account Source</Text>
+                                <Text>{accountSrcId != null ? accountSrcId : ""}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Account Source Name</Text>
+                                <Text>{accountSrcName != null ? accountSrcName : ""}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Account Destination</Text>
+                                <Text>{accountDstId != null ? accountDstId : ""}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Account Destination Name</Text>
+                                <Text>{accountDstName != null ? accountDstName : ""}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                <Text>Amount</Text>
+                                <Text>{amount != null ? amount : ""}</Text>
+                            </View>
                         </ScrollView>
                     </SafeAreaView>
                     <Button
@@ -48,7 +71,7 @@ const TransferInquiryScreen = (props) => {
                         //     accountDestinationName == "" ||
                         //     amount == "amount"
                         // }
-                        onPress={() => navigation.replace("TransferStatus")}>
+                        onPress={Transfer}>
                         Confirm
                     </Button>
                 </View>
@@ -57,4 +80,18 @@ const TransferInquiryScreen = (props) => {
     );
 };
 
-export default TransferInquiryScreen;
+const mapStateToProps = ({ authReducer, transferReducer }) => {
+    return {
+        sessionId: authReducer.sessionId,
+        accountSrcId: transferReducer.accountSrcId,
+        accountSrcName: transferReducer.accountSrcName,
+        accountDstId: transferReducer.accountDstId,
+        accountDstName: transferReducer.accountDstName,
+        amount: transferReducer.amount,
+        inquiryId: transferReducer.inquiryId
+    }
+}
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransferInquiryScreen);

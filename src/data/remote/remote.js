@@ -10,7 +10,7 @@ export const remote = async () => {
             "Content-Type": "application/json",
         },
     });
-
+    // auth
     const authLogin = (username, password) =>
         api.post(
             "/rest/auth/login",
@@ -21,12 +21,13 @@ export const remote = async () => {
         api.delete("/rest/auth/logout", null, {
             headers: { _sessionId: sessionId },
         });
+    // profile
     const profileGet = (sessionId, accountId) => 
         api.get(`/rest/account/detail?id=${accountId}`, null, {
             headers: { _sessionId: sessionId },
         })
+    // history
     const historyGet = (sessionId, accountSrcId) =>
-    // console.log("REMOTE", sessionId, accountSrcId)
         api.get(
             "rest/account/transaction/log?accountSrcId=" + accountSrcId,
             null,
@@ -34,6 +35,7 @@ export const remote = async () => {
                 headers: { _sessionId: sessionId },
             },
         );
+    // transfer
     const transferInquiry = (sessionId, accountSrcId, accountDstId, amount) =>
         api.post(
             "/rest/account/transaction/transferInquiry",
@@ -51,8 +53,9 @@ export const remote = async () => {
         amount,
         inquiryId,
     ) =>
+        // console.log("REMOTE", sessionId, accountSrcId, accountDstId, amount, inquiryId)
         api.post(
-            "/rest/account/transaction/transferInquiry",
+            "/rest/account/transaction/transfer",
             {
                 accountSrcId: accountSrcId,
                 accountDstId: accountDstId,
