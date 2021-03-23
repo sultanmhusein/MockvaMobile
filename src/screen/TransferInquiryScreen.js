@@ -5,23 +5,36 @@ import { useAppComponent, useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { connect } from "react-redux";
 import { transferConfirm } from "../data/action/transfer";
+import { AlertMessage, AlertMessageReset } from "../components/AlertMessage";
 
 const TransferInquiryScreen = (props) => {
-    const { navigation, dispatch, sessionId, accountSrcId, accountSrcName, accountDstId, accountDstName, amount, inquiryId } = props;
+    const { navigation, dispatch, sessionId, accountSrcId, accountSrcName, accountDstId, accountDstName, amount, inquiryId, transferInq } = props;
     const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
     const [isRequesting, setIsRequesting] = useState(false);
     const setRequesting = requesting => setIsRequesting(requesting);
 
     const Transfer = async () => {
-        // if (sessionId != null && accountSrcId != null && accountDstId != null && amount != null && inquiryId != null) {
-            // setRequesting(true);
+        if (sessionId != null && accountSrcId != null && accountDstId != null && amount != null && inquiryId != null) {
+            setRequesting(true);
             await dispatch(transferConfirm(sessionId, accountSrcId, accountDstId, amount, inquiryId))
-            // setRequesting(false);
+            setRequesting(false);
             navigation.replace("TransferStatus")
             console.log("BERHASIL", inquiryId)
-        // }
+        }
     }
+
+    useEffect(() => {
+        setRequesting(false)
+        if (transferInq == null) {
+            AlertMessageReset('Failed', "Account Not Found", () => {
+                navigation.reset({
+                    index: 0,
+                    routes: [{name: 'Main'}],
+                });
+            });
+        }
+    }, [transferInq])
     return (
         <Scaffhold
             isPageCanScroll={false}
@@ -86,7 +99,8 @@ const mapStateToProps = ({ authReducer, transferReducer }) => {
         accountDstId: transferReducer.accountDstId,
         accountDstName: transferReducer.accountDstName,
         amount: transferReducer.amount,
-        inquiryId: transferReducer.inquiryId
+        inquiryId: transferReducer.inquiryId,
+        transferInq: transferReducer.transferInq
     }
 }
 

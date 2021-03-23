@@ -8,7 +8,7 @@ import { transferInquiry, transferClear } from "../data/action/transfer";
 import { AlertMessage } from "../components/AlertMessage";
 
 const TransferScreen = (props) => {
-    const { navigation, dispatch, sessionId, accountSrcId, messageError, transferInq, statusApi } = props;
+    const { navigation, dispatch, sessionId, accountSrcId, messageError, statusApi, statusOk, transferInq } = props;
     const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
     const [accountDestination, setAccountDestination] = useState("8243200409103259");
@@ -21,27 +21,12 @@ const TransferScreen = (props) => {
             console.log("TIDAK BOLEH KOSONG")
         }
 
-        if (accountDestination != '' && amount != '') {
             setRequesting(true);
             await dispatch(transferInquiry(sessionId, accountSrcId, accountDestination, amount))
             setRequesting(false);
-            // console.log("MSG", typeof messageError)
-            // console.log("MSG", messageError)
-            if (messageError == null || messageError == "") {
-                console.log("HARUSNYA GAGAL")
-                AlertMessage("FAILED", messageError)
-            } else{
-                console.log("TERTRANSFER")
-                // navigation.navigate("TransferInquiry")
-            }
-
-        }
+            navigation.navigate("TransferInquiry")
     }
 
-    console.log("ERROR", messageError)
-    // useEffect(() => {
-    //     dispatch(transferClear());
-    // })
 
     return (
         <Scaffhold
@@ -108,7 +93,8 @@ const mapStateToProps = ({ authReducer, transferReducer }) => {
         accountSrcId: authReducer.accountId,
         messageError: transferReducer.messageError,
         transferInq: transferReducer.transferInq,
-        statusApi: transferReducer.statusApi
+        statusApi: transferReducer.statusApi,
+        statusOk: transferReducer.statusOk,
     }
 }
 

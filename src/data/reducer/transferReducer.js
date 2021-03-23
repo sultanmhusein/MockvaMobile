@@ -11,23 +11,25 @@ const initialState = {
     transactionTimestamp: null,
     clientRef: null,
     transferInq: null,
-    statusApi: null
+    statusApi: null,
+    statusOk: null
 }
 
 const transferReducer = (state = initialState, action) => {
     switch (action.type) {
         case TRANSFER_INQUIRY:
+            // console.log("REDUCER", action.data.status)
             if (action.data.status != 200) {
-                console.log("XXXXXXXXX", action.data.ok)
-                console.log("XXXXXXXXX", typeof action.data.ok)
-                return {
-                    ...state,
-                    messageError: action.data.data,
-                    statusApi: action.data.status
-                }
+                    console.log("HASIL", action.data)
+                    return {
+                        ...state,
+                        messageError: action.data.data,
+                        statusApi: action.data.status,
+                        statusOk: action.data.ok
+                    }
             } else {
-                console.log("INQ MUNCUL", action.data.ok)
-                console.log("INQ MUNCUL", typeof action.data.ok)
+                // console.log("INQ MUNCUL", action.data.data)
+                console.log("INQ MUNCUL", action.data)
                 return {
                     ...state,
                     accountSrcId: action.data.data.accountSrcId,
@@ -60,7 +62,8 @@ const transferReducer = (state = initialState, action) => {
             return {
                 ...state,
                 messageError: null,
-                statusApi: null
+                statusApi: null,
+                iniError: false
             }
         default:
             return state;

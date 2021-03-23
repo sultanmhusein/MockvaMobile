@@ -5,6 +5,7 @@ import Scaffhold from "../components/Scaffhold";
 import { historyGet } from "../data/action/history";
 import { connect } from "react-redux";
 import { currencyFormat } from "../../constants/helper";
+import moment from 'moment-timezone';
 
 const HistoryScreen = (props) => {
     const { navigation, dispatch, sessionId, accountSrcId, history } = props;
@@ -35,6 +36,10 @@ const HistoryScreen = (props) => {
                         data={historyList}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({item, index}) => {
+                            const timeStamp = item.transactionTimestamp;
+                            const dateOnly = timeStamp.slice(0, 10);
+                            const timeOnly = timeStamp.slice(11, 16)
+                            const date = moment(dateOnly).format('D MMMM YYYY')
                             return (
                                 <TouchableOpacity
                                     style={{
@@ -45,7 +50,7 @@ const HistoryScreen = (props) => {
                                     <View>
                                         <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
                                             <Text style={{color: colors.darkgray}}>Date</Text>
-                                            <Text style={{color: colors.darkgray}}>{item.transactionTimestamp}</Text>
+                                            <Text style={{color: colors.darkgray}}>{date}{' '}{timeOnly}</Text>
                                         </View>
                                         <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
                                             <Text style={{color: colors.darkgray}}>Amount</Text>
