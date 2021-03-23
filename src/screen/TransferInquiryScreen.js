@@ -22,8 +22,6 @@ const TransferInquiryScreen = (props) => {
             console.log("BERHASIL", inquiryId)
         // }
     }
-
-    console.log("WKWKKW", accountDstName, amount, inquiryId);
     return (
         <Scaffhold
             isPageCanScroll={false}

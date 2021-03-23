@@ -4,11 +4,11 @@ import { TextInput, Button } from "react-native-paper";
 import { useAppComponent, useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { connect } from "react-redux";
-import { transferInquiry } from "../data/action/transfer";
+import { transferInquiry, transferClear } from "../data/action/transfer";
 import { AlertMessage } from "../components/AlertMessage";
 
 const TransferScreen = (props) => {
-    const { navigation, dispatch, sessionId, accountSrcId, messageError } = props;
+    const { navigation, dispatch, sessionId, accountSrcId, messageError, transferInq, statusApi } = props;
     const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
     const [accountDestination, setAccountDestination] = useState("8243200409103259");
@@ -25,18 +25,23 @@ const TransferScreen = (props) => {
             setRequesting(true);
             await dispatch(transferInquiry(sessionId, accountSrcId, accountDestination, amount))
             setRequesting(false);
-            navigation.navigate("TransferInquiry")
+            // console.log("MSG", typeof messageError)
+            // console.log("MSG", messageError)
+            if (messageError == null || messageError == "") {
+                console.log("HARUSNYA GAGAL")
+                AlertMessage("FAILED", messageError)
+            } else{
+                console.log("TERTRANSFER")
+                // navigation.navigate("TransferInquiry")
+            }
 
         }
-
     }
 
-    useEffect(() => {
-        setRequesting(false)
-        if (messageError != null) {
-            AlertMessage("FAILED", messageError)
-        }
-    }, [messageError])
+    console.log("ERROR", messageError)
+    // useEffect(() => {
+    //     dispatch(transferClear());
+    // })
 
     return (
         <Scaffhold
@@ -101,7 +106,9 @@ const mapStateToProps = ({ authReducer, transferReducer }) => {
     return {
         sessionId: authReducer.sessionId,
         accountSrcId: authReducer.accountId,
-        messageError: transferReducer.messageError
+        messageError: transferReducer.messageError,
+        transferInq: transferReducer.transferInq,
+        statusApi: transferReducer.statusApi
     }
 }
 

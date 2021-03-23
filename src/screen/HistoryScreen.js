@@ -21,8 +21,7 @@ const HistoryScreen = (props) => {
         }
     }
 
-    // console.log("SCREN HIS", history)
-    // const historyR = history.reverse()
+    const historyList = history != null ? history.reverse() : history
     return (
         <Scaffhold 
             isPageCanScroll={false}
@@ -33,40 +32,36 @@ const HistoryScreen = (props) => {
                     padding: 8
                 }}>
                     <FlatList 
-                        data={history}
+                        data={historyList}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({item, index}) => {
-                            const historyR = history.reverse();
-                            return historyR.map((item, index) => {
-
-                            
                             return (
                                 <TouchableOpacity
                                     style={{
-                                        borderBottomWidth: 1
+                                        borderBottomWidth: 1,
+                                        borderColor: colors.darkgray
                                     }}
                                 >
                                     <View>
                                         <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                            <Text>Date</Text>
-                                            <Text>{item.transactionTimestamp}</Text>
+                                            <Text style={{color: colors.darkgray}}>Date</Text>
+                                            <Text style={{color: colors.darkgray}}>{item.transactionTimestamp}</Text>
                                         </View>
                                         <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                            <Text>Amount</Text>
-                                            <Text>{currencyFormat(parseInt(item.amount))}</Text>
+                                            <Text style={{color: colors.darkgray}}>Amount</Text>
+                                            <Text style={{color: colors.darkgray}}>{currencyFormat(parseInt(item.amount))}</Text>
                                         </View>
                                         <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                            <Text>Ref</Text>
-                                            <Text>{item.clientRef}</Text>
+                                            <Text style={{color: colors.darkgray}}>Ref</Text>
+                                            <Text style={{color: colors.darkgray}}>{item.clientRef}</Text>
                                         </View>
                                         <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                            <Text>Destination</Text>
-                                            <Text>{item.accountDstId}</Text>
+                                            <Text style={{color: colors.darkgray}}>Destination</Text>
+                                            <Text style={{color: colors.darkgray}}>{item.accountDstId}</Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
                             )
-                        })
                         }}
                     />
                 </View>

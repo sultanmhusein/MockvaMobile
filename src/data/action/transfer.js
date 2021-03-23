@@ -1,4 +1,4 @@
-import { TRANSFER_INQUIRY, TRANSFER_CONFIRM } from "./types";
+import { TRANSFER_INQUIRY, TRANSFER_CONFIRM, TRANSFER_CLEAR } from "./types";
 import { remote } from "../remote/remote";
 
 export const transferInquiry = (
@@ -46,3 +46,5 @@ export const transferConfirm = (
         console.log("GAGAL CONFIRM");
     }
 };
+
+export const transferClear = () => ({ type: TRANSFER_CLEAR });
