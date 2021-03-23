@@ -17,12 +17,12 @@ const TransferScreen = (props) => {
     const setRequesting = requesting => setIsRequesting(requesting);
 
     useEffect(() => {
-        transferClear()
+        dispatch(transferClear())
     }, [])
 
     const Inquiry = async () => {
         if (accountDestination == '' && amount == '') {
-            console.log("TIDAK BOLEH KOSONG")
+            AlertMessage("Failed", "Please complete all forms")
         }
 
             setRequesting(true);
@@ -46,7 +46,7 @@ const TransferScreen = (props) => {
                         <ScrollView>
                             <TextInput
                                 label="Account Destination"
-                                mode="flat"
+                                mode="outlined"
                                 value={accountDestination}
                                 style={{
                                     backgroundColor: colors.white,
@@ -59,7 +59,7 @@ const TransferScreen = (props) => {
                             />
                             <TextInput
                                 label="Amount"
-                                mode="flat"
+                                mode="outlined"
                                 value={amount}
                                 style={{
                                     backgroundColor: colors.white,

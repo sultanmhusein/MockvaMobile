@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, KeyboardAvoidingView } from "react-native";
 import { useAppComponent, useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { TextInput, Button } from "react-native-paper";
 import { connect } from "react-redux";
 import { authLogin } from "../data/action/auth";
+import { AlertMessage } from "../components/AlertMessage";
 
 const LoginScreen = (props) => {
     const { navigation, dispatch, sessionStatus, sessionId, messageLogin } = props;
@@ -25,8 +26,7 @@ const LoginScreen = (props) => {
         if (sessionId != null && sessionStatus == 'ACTIVE') {
             navigation.replace('Main')
         } else if (sessionId != null) {
-            console.log("LOGIN GAGAL")
-            
+            AlertMessage("Login Failed", "Please try again")
         }
     }, [sessionId])
 
@@ -39,6 +39,7 @@ const LoginScreen = (props) => {
                     justifyContent: "center",
                     padding: 24
                 }}>
+                    <KeyboardAvoidingView>
                     <Image source={images.logo} style={{ width: 160, height: 160, justifyContent: 'center', alignSelf: "center" }} />
                     <Text style={{ color: colors.blue, fontSize: 20, textAlign: "center", marginVertical: 16, fontFamily: 'PoppinsMedium'}}>Mockva Mobile</Text>
                     <Text style={{color: colors.red, textAlign: 'center'}}>{messageLogin}</Text>
@@ -46,7 +47,7 @@ const LoginScreen = (props) => {
                         label="Username"
                         mode="flat"
                         value={username}
-                        style={{ backgroundColor: colors.white, color: colors.blue, marginTop: 16 }}
+                        style={{ backgroundColor: colors.white, color: colors.blue, marginTop: 12 }}
                         onChangeText={username => setUsername(username)}
                     />
                     <TextInput
@@ -54,15 +55,16 @@ const LoginScreen = (props) => {
                         mode="flat"
                         value={password}
                         // underlineColor={colors.blue}
-                        style={{ backgroundColor: colors.white, color: colors.blue, marginTop: 16 }}
+                        style={{ backgroundColor: colors.white, color: colors.blue, marginTop: 8 }}
                         onChangeText={password => setPassword(password)}
                     />
+                    </KeyboardAvoidingView>
                     <Button
                         mode="contained"
                         color={colors.blue}
-                        style={{ marginTop: 64 }}
-                        // loading={isRequesting}
-                        // disabled={isRequesting || username == '' || password == ''}
+                        style={{ marginTop: 24 }}
+                        loading={isRequesting}
+                        disabled={isRequesting || username == '' || password == ''}
                         onPress={Login}>
                         Login
                     </Button>
