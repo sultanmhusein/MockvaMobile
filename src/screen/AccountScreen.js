@@ -1,81 +1,101 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, Image } from "react-native";
-import { Button } from "react-native-paper";
-import { useAppComponent, useTheme } from "../Contexts";
+import React from "react";
+import { View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity, Alert } from "react-native";
+import { useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { authLogout } from "../data/action/auth";
 import { connect } from "react-redux";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const AccountScreen = (props) => {
     const { navigation, dispatch } = props;
-    const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
+
+    const confirmationLogout = () => 
+      Alert.alert('Logout', "Are you sure want to logout?", [
+        {
+          text: 'No',
+        },
+        {
+          text: 'Yes',
+          onPress: () => {
+            dispatch(authLogout());
+            navigation.replace('Login');
+          },
+        },
+      ]);
     
     return (
         <Scaffhold 
             isPageCanScroll={false}
             body={
-                <View
-          style={{
-              flex: 1,
-              // justifyContent: "center",
-              padding: 24,
-              backgroundColor: "#F6F6F6"
-          }}>
-          <SafeAreaView>
-            <ScrollView>
-            <View style={{ backgroundColor: '#F6F6F6'}}>
-              <View style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', padding: 16, marginBottom: 8 }}>
-                <View style={{flexDirection: 'row'}}>
-                  <Image source={images.man} style={{ width: 20, height: 20 }} />
-                  <Text style={{textAlign: 'center', marginLeft: 12}}>About</Text>
+              <View style={styles.accountContainer}>
+                <View style={{height: '40%', backgroundColor: colors.blue, alignItems: 'center', justifyContent: 'center'}}>
+                  <View style={{backgroundColor: colors.white, padding: 16, borderRadius: 24}}>
+                    <Image source={images.man} style={{ width: 80, height: 80 }} />
+                  </View>
                 </View>
-                <Text>a</Text>
+                <SafeAreaView>
+                  <ScrollView>
+                    <View style={{ backgroundColor: colors.lightgray}}>
+                      <TouchableOpacity>
+                        <View style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', padding: 16, marginBottom: 8 }}>
+                          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Icon name="account-edit-outline" size={24} color={colors.blue} />
+                            <Text style={{textAlign: 'justify', marginLeft: 12}}>Edit Account</Text>
+                          </View>
+                          <Icon name="chevron-right" size={20} />
+                        </View>
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        <View style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', padding: 16 }}>
+                          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                          <Icon name="information-outline" size={24} color={colors.blue} />
+                            <Text style={{textAlign: 'justify', marginLeft: 12}}>About</Text>
+                          </View>
+                          <Icon name="chevron-right" size={20} />
+                        </View>
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        <View style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', padding: 16 }}>
+                          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Icon name="cellphone-information" size={24} color={colors.blue} />
+                            <Text style={{textAlign: 'justify', marginLeft: 12}}>App Version</Text>
+                          </View>
+                          <Icon name="chevron-right" size={20} />
+                        </View>
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        <View style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', padding: 16}}>
+                          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Icon name="file-document-outline" size={24} color={colors.blue} />
+                            <Text style={{textAlign: 'justify', marginLeft: 12}}>Term And Condition</Text>
+                          </View>
+                          <Icon name="chevron-right" size={20} />
+                        </View>
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        <View style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', padding: 16}}>
+                          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Icon name="file-document-outline" size={24} color={colors.blue} />
+                            <Text style={{textAlign: 'justify', marginLeft: 12}}>Privacy Policy</Text>
+                          </View>
+                          <Icon name="chevron-right" size={20} />
+                        </View>
+                      </TouchableOpacity>
+                      <TouchableOpacity 
+                        onPress={confirmationLogout}>
+                        <View style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', padding: 16, marginTop: 8 }}>
+                          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Icon name="logout" size={24} color={colors.blue} />
+                            <Text style={{textAlign: 'justify', marginLeft: 12}}>Logout</Text>
+                          </View>
+                          <Icon name="chevron-right" size={20} />
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </ScrollView>
+                </SafeAreaView>
               </View>
-              <View style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', padding: 16, borderTopLeftRadius: 8, borderTopRightRadius: 8 }}>
-                <View style={{flexDirection: 'row'}}>
-                  <Image source={images.man} style={{ width: 20, height: 20 }} />
-                  <Text style={{textAlign: 'center', marginLeft: 12}}>TEST</Text>
-                </View>
-                <Text>a</Text>
-              </View>
-              <View style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', padding: 16 }}>
-                <View style={{flexDirection: 'row'}}>
-                  <Image source={images.man} style={{ width: 20, height: 20 }} />
-                  <Text style={{textAlign: 'center', marginLeft: 12}}>TEST</Text>
-                </View>
-                <Text>a</Text>
-              </View>
-              <View style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', padding: 16, borderBottomLeftRadius: 8, borderBottomRightRadius: 8 }}>
-                <View style={{flexDirection: 'row'}}>
-                  <Image source={images.man} style={{ width: 20, height: 20 }} />
-                  <Text style={{textAlign: 'center', marginLeft: 12}}>TEST</Text>
-                </View>
-                <Text>a</Text>
-              </View>
-              <View style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', padding: 16, marginTop: 8 }}>
-                <View style={{flexDirection: 'row'}}>
-                  <Image source={images.man} style={{ width: 20, height: 20 }} />
-                  <Text style={{textAlign: 'center', marginLeft: 12}}>About</Text>
-                </View>
-                <Text>a</Text>
-              </View>
-            </View>
-            </ScrollView>
-            <Button
-                mode="contained"
-                color={colors.blue}
-                style={{ marginTop: 64 }}
-                // loading={isRequesting}
-                // disabled={isRequesting || username == '' || password == ''}
-                onPress={() => {
-                    dispatch(authLogout());
-                    navigation.replace('Login');
-                }}>
-                Logout
-            </Button>
-          </SafeAreaView>
-        </View>
             }
         />
     )

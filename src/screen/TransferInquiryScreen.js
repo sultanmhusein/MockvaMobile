@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
-import { TextInput, Button } from "react-native-paper";
-import { useAppComponent, useTheme } from "../Contexts";
+import { Button } from "react-native-paper";
+import { useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { connect } from "react-redux";
-import { transferConfirm } from "../data/action/transfer";
-import { AlertMessage, AlertMessageReset } from "../components/AlertMessage";
+import { transferClear, transferConfirm } from "../data/action/transfer";
+import { AlertMessageReset } from "../components/AlertMessage";
 
 const TransferInquiryScreen = (props) => {
     const { navigation, dispatch, sessionId, accountSrcId, accountSrcName, accountDstId, accountDstName, amount, inquiryId, transferInq } = props;
-    const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
     const [isRequesting, setIsRequesting] = useState(false);
     const setRequesting = requesting => setIsRequesting(requesting);
@@ -27,11 +26,13 @@ const TransferInquiryScreen = (props) => {
     useEffect(() => {
         setRequesting(false)
         if (transferInq == null) {
+            // dispatch(transferClear())
             AlertMessageReset('Failed', "Account Not Found", () => {
                 navigation.reset({
                     index: 0,
                     routes: [{name: 'Main'}],
                 });
+                dispatch(transferClear())
             });
         }
     }, [transferInq])

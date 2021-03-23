@@ -62,8 +62,7 @@ const transferReducer = (state = initialState, action) => {
             return {
                 ...state,
                 messageError: null,
-                statusApi: null,
-                iniError: false
+                transferInq: null
             }
         default:
             return state;

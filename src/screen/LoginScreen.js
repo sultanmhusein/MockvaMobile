@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { useAppComponent, useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { TextInput, Button } from "react-native-paper";
@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { authLogin } from "../data/action/auth";
 
 const LoginScreen = (props) => {
-    const { navigation, dispatch, sessionStatus, sessionId } = props;
+    const { navigation, dispatch, sessionStatus, sessionId, messageLogin } = props;
     const { networkStatus } = useAppComponent();
     const { colors, images, styles } = useTheme();
     const [username, setUsername] = useState("USER040905");
@@ -39,12 +39,14 @@ const LoginScreen = (props) => {
                     justifyContent: "center",
                     padding: 24
                 }}>
-                    <Text style={{ color: colors.black, fontSize: 20, textAlign: "center" }}>Mockva Mobile</Text>
+                    <Image source={images.logo} style={{ width: 160, height: 160, justifyContent: 'center', alignSelf: "center" }} />
+                    <Text style={{ color: colors.blue, fontSize: 20, textAlign: "center", marginVertical: 16, fontFamily: 'PoppinsMedium'}}>Mockva Mobile</Text>
+                    <Text style={{color: colors.red, textAlign: 'center'}}>{messageLogin}</Text>
                     <TextInput
                         label="Username"
                         mode="flat"
                         value={username}
-                        style={{ backgroundColor: colors.white, color: colors.blue, marginTop: 32 }}
+                        style={{ backgroundColor: colors.white, color: colors.blue, marginTop: 16 }}
                         onChangeText={username => setUsername(username)}
                     />
                     <TextInput
@@ -52,7 +54,7 @@ const LoginScreen = (props) => {
                         mode="flat"
                         value={password}
                         // underlineColor={colors.blue}
-                        style={{ backgroundColor: colors.white, color: colors.blue, marginTop: 32 }}
+                        style={{ backgroundColor: colors.white, color: colors.blue, marginTop: 16 }}
                         onChangeText={password => setPassword(password)}
                     />
                     <Button
@@ -74,6 +76,7 @@ const mapStateToProps = ({ authReducer }) => {
     return {
         sessionStatus: authReducer.sessionStatus,
         sessionId: authReducer.sessionId,
+        messageLogin: authReducer.messageLogin
     }
 }
 

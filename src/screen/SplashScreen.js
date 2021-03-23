@@ -44,13 +44,13 @@ const SplashScreen = (props) => {
                     <Fill />
 
                     <Animatable.View
-                        duration={1000}
+                        duration={300}
                         animation="blink"
                         >
                         <Image source={images.logo} style={{ width: 160, height: 160 }} />
                     </Animatable.View>
 
-                    <Text style={{ marginTop: 48, fontSize: 24, color: colors.blue }}>{appName}</Text>
+                    <Text style={{ marginTop: 48, fontSize: 24, color: colors.blue, fontFamily: "PoppinsMedium" }}>{appName}</Text>
 
                     <Fill />
 

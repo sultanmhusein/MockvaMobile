@@ -3,7 +3,7 @@ import { setCredential, removeCredential } from "../local/storage";
 
 const initialState = {
     sessionStatus: null,
-    message: null,
+    messageLogin: null,
     sessionId: null,
     accountId: null,
 }
@@ -11,9 +11,6 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case AUTH_CREDENTIAL:
-            // console.log("AUTH CRED", action.data)
-            // console.log("SESSION ID", action.data[0][1])
-            // console.log("ACCOUNT ID", action.data[1][1])
             return {
                 ...state,
                 sessionId: action.data[0][1],
@@ -23,10 +20,11 @@ const authReducer = (state = initialState, action) => {
             removeCredential([]);
             return initialState;
         case AUTH_LOGIN:
+            console.log("EKS", action.data)
             if (action.data.status != 200) {
                 return {
                     ...state,
-                    message: "GAGAL LOGIN :("
+                    messageLogin: action.data.data
                 }
             } else {
                 setCredential([action.data.data.id, action.data.data.accountId]);

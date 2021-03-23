@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from "react-native";
-import { useAppComponent, useTheme } from "../Contexts";
+import React, { useEffect } from "react";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { historyGet } from "../data/action/history";
 import { connect } from "react-redux";
@@ -8,9 +8,8 @@ import { currencyFormat } from "../../constants/helper";
 import moment from 'moment-timezone';
 
 const HistoryScreen = (props) => {
-    const { navigation, dispatch, sessionId, accountSrcId, history } = props;
-    const { networkStatus } = useAppComponent();
-    const { colors, images, styles } = useTheme();
+    const { dispatch, sessionId, accountSrcId, history } = props;
+    const { colors, styles } = useTheme();
 
     useEffect(() => {
         getCredential()
@@ -30,7 +29,7 @@ const HistoryScreen = (props) => {
                 <View style={{
                     flex: 1,
                     justifyContent: "center",
-                    padding: 8
+                    padding: 4
                 }}>
                     <FlatList 
                         data={historyList}
@@ -43,27 +42,18 @@ const HistoryScreen = (props) => {
                             return (
                                 <TouchableOpacity
                                     style={{
-                                        borderBottomWidth: 1,
-                                        borderColor: colors.darkgray
+                                        borderBottomWidth: 0.5,
+                                        borderColor: colors.blue,
+                                        padding: 8
                                     }}
                                 >
-                                    <View>
-                                        <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                            <Text style={{color: colors.darkgray}}>Date</Text>
-                                            <Text style={{color: colors.darkgray}}>{date}{' '}{timeOnly}</Text>
-                                        </View>
-                                        <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                            <Text style={{color: colors.darkgray}}>Amount</Text>
-                                            <Text style={{color: colors.darkgray}}>{currencyFormat(parseInt(item.amount))}</Text>
-                                        </View>
-                                        <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                            <Text style={{color: colors.darkgray}}>Ref</Text>
-                                            <Text style={{color: colors.darkgray}}>{item.clientRef}</Text>
-                                        </View>
-                                        <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                            <Text style={{color: colors.darkgray}}>Destination</Text>
-                                            <Text style={{color: colors.darkgray}}>{item.accountDstId}</Text>
-                                        </View>
+                                    <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                        <Text style={{color: colors.darkgray, fontFamily: "PoppinsMedium"}}>{item.clientRef}</Text>
+                                        <Text style={{color: colors.blue, fontFamily: "PoppinsMedium"}}>{currencyFormat(parseInt(item.amount))}</Text>
+                                    </View>
+                                    <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
+                                        <Text style={{color: colors.blue, fontFamily: "PoppinsMedium"}}>{date}{' '}{timeOnly}</Text>
+                                        <Text style={{color: colors.darkgray, fontFamily: "PoppinsMedium"}}>{item.accountDstId}</Text>
                                     </View>
                                 </TouchableOpacity>
                             )

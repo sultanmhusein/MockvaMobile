@@ -9,7 +9,7 @@ export const authLogin = (username, password) => {
         dispatch({ type: AUTH_LOGIN, data: authLogin })
     }
     } catch (error) {
-        console.log("GAGAL DI AUTH ACTION", error)
+        console.log("FAILED LOGIN", error)
     }
 }
 

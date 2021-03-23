@@ -1,62 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { View, Image, TouchableOpacity, Alert, Text } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+import { Text } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Images from '../../constants/images';
-import { connect } from "react-redux";
 import { useTheme } from "../Contexts";
+import colors from "../../constants/colors";
 
 const Stack = createStackNavigator();
-// const Tab = createBottomTabNavigator();
 const Tab = AnimatedTabBarNavigator();
 
 const BottomTabs = () => {
     const { colors, styles, font } = useTheme();
     return (
-        // <Tab.Navigator
-        //     backBehavior="history"
-        //     tabBarOptions={{
-        //         activeTintColor: Colors.grayBlue,
-        //         inactiveTintColor: Colors.grayBlue,
-        //         activeBackgroundColor: Colors.darkBlue,
-        //         inactiveBackgroundColor: Colors.darkBlue,
-        //         keyboardHidesTabBar: true,
-        //     }}>
-        //     <Tab.Screen
-        //         name="Main"
-        //         component={require("./MainScreen").default}
-        //         options={{
-        //             tabBarIcon: ({ color }) => (
-        //                 <Icon name="home" size={22} color={color} />
-        //             ),
-        //         }}
-        //     />
-        //     <Tab.Screen
-        //         name="Transfer"
-        //         component={require("./TransferScreen").default}
-        //         options={{
-        //             tabBarIcon: ({ color }) => (
-        //                 <Icon name="heart" size={22} color={color} />
-        //             ),
-        //         }}
-        //     />
-        //     <Tab.Screen
-        //         name="Account"
-        //         component={require("./AccountScreen").default}
-        //         options={{
-        //             tabBarIcon: ({ color }) => (
-        //                 <Icon name="cat" size={22} color={color} />
-        //             ),
-        //         }}
-        //     />
-        // </Tab.Navigator>
         <Tab.Navigator
         backBehavior="history"
         appearence={{
-            // floating: true,
             activeColors: [colors.white, colors.white, colors.white, colors.white],
             activeTabBackgrounds: [colors.blue, colors.blue, colors.blue, colors.blue],
             dotSize: 'small',
@@ -71,8 +29,6 @@ const BottomTabs = () => {
                     paddingBottom: 0,
                 },
                 tabStyle: {
-                    // borderTopWidth: 0.5,
-                    // borderColor: colors.accent,
                     backgroundColor: colors.white,
                 },
                 style: {
@@ -121,7 +77,7 @@ const Routes = ({ initialParams, initialRoute }) => {
                 component={BottomTabs}options={({ navigation }) => ({
                     headerBackTitle: () => <Text>KEMBALI</Text>,
                     headerTitle: () => (
-                        <Text style={{textAlign: "center", fontSize: 16}}>Mockva Mobile</Text>
+                        <Text style={{textAlign: "center", fontSize: 16, color: colors.blue, fontFamily: "PoppinsMedium"}}>Mockva Mobile</Text>
                     )
                 })}
             />

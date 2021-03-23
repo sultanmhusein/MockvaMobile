@@ -16,6 +16,10 @@ const TransferScreen = (props) => {
     const [isRequesting, setIsRequesting] = useState(false);
     const setRequesting = requesting => setIsRequesting(requesting);
 
+    useEffect(() => {
+        transferClear()
+    }, [])
+
     const Inquiry = async () => {
         if (accountDestination == '' && amount == '') {
             console.log("TIDAK BOLEH KOSONG")
