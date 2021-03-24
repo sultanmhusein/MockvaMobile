@@ -29,14 +29,14 @@ const AccountScreen = (props) => {
         isPageCanScroll={false}
         body={
           <View style={styles.accountContainer}>
-            <View style={{height: '35%', backgroundColor: colors.blue, alignItems: 'center', justifyContent: 'center'}}>
+            <SafeAreaView>
+            <View style={{height: '30%', backgroundColor: colors.blue, alignItems: 'center', justifyContent: 'center'}}>
               <View style={{backgroundColor: colors.white, padding: 8, borderRadius: 8}}>
-                <Image source={images.qrCode} style={{ width: 80, height: 80 }} />
+                <Image source={images.qrCode} style={{ width: 64, height: 64 }} />
               </View>
-              <Text style={{color: colors.white, marginTop: 8, fontFamily: font.medium, fontSize: 20}}>{profile != null ? profile.name : ""}</Text>
+              <Text style={{color: colors.white, marginTop: 8, fontFamily: font.medium, fontSize: 18}}>{profile != null ? profile.name : ""}</Text>
               <Text style={{color: colors.white}}>{profile != null ? profile.id : ""}</Text>
             </View>
-            <SafeAreaView>
               <ScrollView>
                 <View style={{ backgroundColor: colors.lightgray}}>
                   <TouchableOpacity>
