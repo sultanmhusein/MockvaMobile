@@ -9,7 +9,7 @@ import moment from 'moment-timezone';
 
 const HistoryScreen = (props) => {
     const { dispatch, sessionId, accountSrcId, history } = props;
-    const { colors, styles } = useTheme();
+    const { colors, styles, font } = useTheme();
 
     useEffect(() => {
         getCredential()
@@ -42,18 +42,19 @@ const HistoryScreen = (props) => {
                             return (
                                 <TouchableOpacity
                                     style={{
-                                        borderBottomWidth: 0.5,
-                                        borderColor: colors.blue,
-                                        padding: 8
+                                        borderBottomWidth: 1,
+                                        borderColor: colors.gray,
+                                        padding: 8,
+                                        justifyContent: "center"
                                     }}
                                 >
-                                    <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                        <Text style={{color: colors.darkgray, fontFamily: "PoppinsMedium"}}>{item.clientRef}</Text>
-                                        <Text style={{color: colors.blue, fontFamily: "PoppinsMedium"}}>{currencyFormat(parseInt(item.amount))}</Text>
+                                    <View style={{ ...styles.containerRow, justifyContent: "space-between" }}>
+                                        <Text style={{color: colors.blue, fontFamily: font.medium, fontSize: 12}}>{item.clientRef}</Text>
+                                        <Text style={{color: colors.blue, fontFamily: font.medium, fontSize: 16}}>{currencyFormat(parseInt(item.amount))}</Text>
                                     </View>
-                                    <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                        <Text style={{color: colors.blue, fontFamily: "PoppinsMedium"}}>{date}{' '}{timeOnly}</Text>
-                                        <Text style={{color: colors.darkgray, fontFamily: "PoppinsMedium"}}>{item.accountDstId}</Text>
+                                    <View style={{ ...styles.containerRow, justifyContent: "space-between" }}>
+                                        <Text style={{color: colors.darkgray, fontSize: 12}}>{date}{' '}{timeOnly}</Text>
+                                        <Text style={{color: colors.darkgray, fontFamily: font.medium}}>{item.accountDstId}</Text>
                                     </View>
                                 </TouchableOpacity>
                             )

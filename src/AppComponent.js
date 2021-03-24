@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppComponentProvider } from "./Contexts";
 import Routes from "./screen/Routes";
-// import navigator from "./navigator";
 import NetInfo from "@react-native-community/netinfo";
 import DeviceInfo from "react-native-device-info";
 import Globalfont from "react-native-global-font";
@@ -39,7 +38,6 @@ const AppComponent = (props) => {
         keyboardShown: keyboardShown,
         appVersion: DeviceInfo.getVersion(),
         appName: "Mockva",
-        // navigator: navigator
     }}>
         <NavigationContainer>
             <Routes initialRoute="splash" />

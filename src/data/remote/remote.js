@@ -1,5 +1,4 @@
 import Config from "react-native-config";
-import axios from "axios";
 import apisauce from "apisauce";
 
 export const remote = async () => {
@@ -53,7 +52,6 @@ export const remote = async () => {
         amount,
         inquiryId,
     ) =>
-        // console.log("REMOTE", sessionId, accountSrcId, accountDstId, amount, inquiryId)
         api.post(
             "/rest/account/transaction/transfer",
             {

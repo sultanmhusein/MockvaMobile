@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, Image } from "react-native";
-import { Button, TextInput } from "react-native-paper";
+import { View, Text, SafeAreaView, ScrollView, Image } from "react-native";
+import { Button } from "react-native-paper";
 import { useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { connect } from "react-redux";
@@ -10,7 +10,7 @@ import { currencyFormat } from "../../constants/helper";
 
 const TransferInquiryScreen = (props) => {
     const { navigation, dispatch, sessionId, accountSrcId, accountSrcName, accountDstId, accountDstName, amount, inquiryId, transferInq } = props;
-    const { colors, images, styles } = useTheme();
+    const { colors, images, styles, font } = useTheme();
     const [isRequesting, setIsRequesting] = useState(false);
     const setRequesting = requesting => setIsRequesting(requesting);
 
@@ -30,12 +30,13 @@ const TransferInquiryScreen = (props) => {
             AlertMessageReset('Failed', "Account Not Found", () => {
                 navigation.reset({
                     index: 0,
-                    routes: [{name: 'Main'}],
+                    routes: [{name: "Home"}],
                 });
                 dispatch(transferClear())
             });
         }
     }, [transferInq])
+
     return (
         <Scaffhold
             isPageCanScroll={false}
@@ -48,21 +49,21 @@ const TransferInquiryScreen = (props) => {
                     <SafeAreaView>
                         <ScrollView>
                             <View style={{backgroundColor: "white", padding: 16, borderWidth: 2, borderColor: colors.lightgray, borderRadius: 8}}>
-                                <Text style={{color: colors.blue, fontSize: 20, fontFamily: "PoppinsMedium", textAlign: 'center'}}>Confirm Transfer</Text>
+                                <Text style={{...styles.textMediumBig, color: colors.blue, textAlign: 'center'}}>Confirm Transfer</Text>
                                 <Image source={images.logo} style={{ width: 120, height: 120, justifyContent: 'center', alignSelf: "center", marginVertical: 16 }} />
-                                <View style={{flexDirection: 'column', justifyContent: "space-between", marginBottom: 8, borderBottomWidth: 0.5, borderColor: colors.blue}}>
+                                <View style={{justifyContent: "space-between", marginBottom: 8, borderBottomWidth: 0.5, borderColor: colors.blue}}>
                                     <Text>Send From</Text>
-                                    <Text style={{fontSize: 20, fontFamily: "PoppinsMedium"}}>{accountSrcName != null ? accountSrcName : ""}</Text>
+                                    <Text style={styles.textMediumBig}>{accountSrcName != null ? accountSrcName : ""}</Text>
                                     <Text style={{fontSize: 16}}>Mockva - {accountSrcId != null ? accountSrcId : ""}</Text>
                                 </View>
-                                <View style={{flexDirection: 'column', justifyContent: "space-between", borderBottomWidth: 0.5, borderColor: colors.blue}}>
+                                <View style={{justifyContent: "space-between", borderBottomWidth: 0.5, borderColor: colors.blue}}>
                                     <Text>Send To</Text>
-                                    <Text style={{fontSize: 20, fontFamily: "PoppinsMedium"}}>{accountDstName != null ? accountDstName : ""}</Text>
+                                    <Text style={styles.textMediumBig}>{accountDstName != null ? accountDstName : ""}</Text>
                                     <Text style={{fontSize: 16}}>Mockva - {accountDstId != null ? accountDstId : ""}</Text>
                                 </View>
-                                <View style={{flexDirection: 'column', justifyContent: "space-between", marginTop: 8}}>
+                                <View style={{justifyContent: "space-between", marginTop: 8}}>
                                     <Text>Amount</Text>
-                                    <Text style={{fontSize: 32, fontFamily: "PoppinsMedium", color: colors.blue}}>{amount != null ? currencyFormat(parseInt(amount)) : "0"}</Text>
+                                    <Text style={{fontSize: 32, fontFamily: font.medium, color: colors.blue}}>{amount != null ? currencyFormat(parseInt(amount)) : "0"}</Text>
                                 </View>
                             </View>
                         </ScrollView>
@@ -74,7 +75,7 @@ const TransferInquiryScreen = (props) => {
                             style={{ marginTop: 8, width: '45%', marginRight: '5%' }}
                             onPress={() => {navigation.reset({
                                 index: 0,
-                                routes: [{name: 'Main'}],
+                                routes: [{name: "Home"}],
                             })}}>
                             Cancel
                         </Button>

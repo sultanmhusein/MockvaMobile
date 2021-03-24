@@ -11,6 +11,7 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case AUTH_CREDENTIAL:
+            console.log("$$$", action)
             return {
                 ...state,
                 sessionId: action.data[0][1],
@@ -21,6 +22,7 @@ const authReducer = (state = initialState, action) => {
             return initialState;
         case AUTH_LOGIN:
             console.log("EKS", action.data)
+            console.log("Ses", action.data.data.sessionStatus)
             if (action.data.status != 200) {
                 return {
                     ...state,

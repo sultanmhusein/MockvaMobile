@@ -11,6 +11,7 @@
     "clean-run": "cd android && gradlew clean && cd .. && npx react-native run-android"
   },
   "dependencies": {
+    "@react-native-clipboard/clipboard": "^1.7.0",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/netinfo": "^5.9.10",

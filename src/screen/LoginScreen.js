@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image, KeyboardAvoidingView } from "react-native";
-import { useAppComponent, useTheme } from "../Contexts";
+import { View, Text, Image, KeyboardAvoidingView } from "react-native";
+import { useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { TextInput, Button } from "react-native-paper";
 import { connect } from "react-redux";
@@ -9,8 +9,7 @@ import { AlertMessage } from "../components/AlertMessage";
 
 const LoginScreen = (props) => {
     const { navigation, dispatch, sessionStatus, sessionId, messageLogin } = props;
-    const { networkStatus } = useAppComponent();
-    const { colors, images, styles } = useTheme();
+    const { colors, images, styles, font } = useTheme();
     const [username, setUsername] = useState("USER040905");
     const [password, setPassword] = useState("QYd2991");
     const [isRequesting, setIsRequesting] = useState(false);
@@ -24,7 +23,7 @@ const LoginScreen = (props) => {
     useEffect(() => {
         setRequesting(false);
         if (sessionId != null && sessionStatus == 'ACTIVE') {
-            navigation.replace('Main')
+            navigation.replace("Home")
         } else if (sessionId != null) {
             AlertMessage("Login Failed", "Please try again")
         }
@@ -40,22 +39,22 @@ const LoginScreen = (props) => {
                     padding: 24
                 }}>
                     <KeyboardAvoidingView>
-                    <Image source={images.logo} style={{ width: 160, height: 160, justifyContent: 'center', alignSelf: "center" }} />
-                    <Text style={{ color: colors.blue, fontSize: 20, textAlign: "center", marginVertical: 16, fontFamily: 'PoppinsMedium'}}>Mockva Mobile</Text>
+                    <Image source={images.logo} style={{ ...styles.imageCenter, width: 160, height: 160 }} />
+                    <Text style={{ color: colors.blue, fontSize: 20, textAlign: "center", marginTop: 16, fontFamily: font.medium}}>Mockva Mobile</Text>
                     <Text style={{color: colors.red, textAlign: 'center'}}>{messageLogin}</Text>
                     <TextInput
                         label="Username"
                         mode="flat"
                         value={username}
-                        style={{ backgroundColor: colors.white, color: colors.blue, marginTop: 12 }}
+                        style={styles.textInputFlat}
                         onChangeText={username => setUsername(username)}
                     />
                     <TextInput
                         label="Password"
                         mode="flat"
                         value={password}
-                        // underlineColor={colors.blue}
-                        style={{ backgroundColor: colors.white, color: colors.blue, marginTop: 8 }}
+                        secureTextEntry={true}
+                        style={styles.textInputFlat}
                         onChangeText={password => setPassword(password)}
                     />
                     </KeyboardAvoidingView>

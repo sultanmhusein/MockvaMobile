@@ -10,6 +10,6 @@ export const historyGet = (sessionId, accountSrcId) => {
             dispatch({ type: HISTORY_GET, data: dataHistory })
         }
     } catch (error) {
-        console.log("NOT GET HISTORY")
+        console.log("GET HISTORY FAILED", error)
     }
 }

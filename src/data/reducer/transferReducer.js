@@ -11,8 +11,6 @@ const initialState = {
     transactionTimestamp: null,
     clientRef: null,
     transferInq: null,
-    statusApi: null,
-    statusOk: null
 }
 
 const transferReducer = (state = initialState, action) => {
@@ -24,8 +22,6 @@ const transferReducer = (state = initialState, action) => {
                     return {
                         ...state,
                         messageError: action.data.data,
-                        statusApi: action.data.status,
-                        statusOk: action.data.ok
                     }
             } else {
                 // console.log("INQ MUNCUL", action.data.data)
@@ -38,8 +34,7 @@ const transferReducer = (state = initialState, action) => {
                     accountDstName: action.data.data.accountDstName,
                     amount: action.data.data.amount,
                     inquiryId: action.data.data.inquiryId,
-                    transferInq: action.data.data,
-                    statusApi: action.data.status
+                    transferInq: action.data.data
                 }
             }
         case TRANSFER_CONFIRM:

@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 const Tab = AnimatedTabBarNavigator();
 
 const BottomTabs = () => {
-    const { colors, styles, font } = useTheme();
+    const { colors } = useTheme();
     return (
         <Tab.Navigator
         backBehavior="history"
@@ -36,9 +36,9 @@ const BottomTabs = () => {
                 }
             }}
             >
-                <Tab.Screen
+            <Tab.Screen
             name="Home"
-            component={require("./MainScreen").default}
+            component={require("./HomeScreen").default}
             options={{
                 tabBarIcon: ({ focused, color, size }) => <Icon name="home" size={size ? size : 24} color={focused ? color : "#222"} focused={focused} color={color} />
             }} />
@@ -64,7 +64,7 @@ const BottomTabs = () => {
     );
 };
 
-const Routes = ({ initialParams, initialRoute }) => {
+const Routes = ({ initialRoute }) => {
     return (
         <Stack.Navigator initialRouteName={initialRoute}>
             <Stack.Screen
@@ -73,7 +73,7 @@ const Routes = ({ initialParams, initialRoute }) => {
                 options={{ headerShown: false, headerBackTitle: "Kembali" }}
             />
             <Stack.Screen
-                name="Main"
+                name="Home"
                 component={BottomTabs}options={({ navigation }) => ({
                     headerBackTitle: () => <Text>KEMBALI</Text>,
                     headerTitle: () => (
@@ -97,8 +97,8 @@ const Routes = ({ initialParams, initialRoute }) => {
                 options={{ headerBackTitle: "Kembali", headerTitle: "Transfer" }}
             />
             <Stack.Screen
-                name="DetailProduct"
-                component={require("./DetailProductScreen").default}
+                name="DetailHistory"
+                component={require("./DetailHistoryScreen").default}
                 options={{ headerShown: true, headerBackTitle: "Kembali" }}
             />
         </Stack.Navigator>

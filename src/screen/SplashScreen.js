@@ -2,16 +2,16 @@ import React, { useEffect } from "react";
 import Scaffhold from "../components/Scaffhold";
 import { Text, View, Image } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { useAppComponent, useNavigator, useTheme } from "../Contexts";
+import { useAppComponent, useTheme } from "../Contexts";
 import Fill from "../components/Fill";
 import { connect } from "react-redux";
 import { getCredential } from "../data/local/storage";
 import { setCredential } from "../data/action/auth";
 
 const SplashScreen = (props) => {
-    const { navigation, dispatch } = props;
+    const { navigation, dispatch, isSessionExpired } = props;
     const { appVersion, appName } = useAppComponent();
-    const { colors, images } = useTheme();
+    const { colors, images, font } = useTheme();
 
     useEffect(() => {
         checkSession()
@@ -19,10 +19,10 @@ const SplashScreen = (props) => {
 
     const checkSession = async () => {
         let data = await getCredential([]);
-        console.log("ADUH", data)
+        console.log("SESSION", data)
         if (data[0][1] != null && data[1][1] != null) {
             await dispatch(setCredential(data))
-            navigation.replace("Main")
+            navigation.replace("Home")
         } 
         else {
             navigation.replace("Login")
@@ -50,7 +50,7 @@ const SplashScreen = (props) => {
                         <Image source={images.logo} style={{ width: 160, height: 160 }} />
                     </Animatable.View>
 
-                    <Text style={{ marginTop: 48, fontSize: 24, color: colors.blue, fontFamily: "PoppinsMedium" }}>{appName}</Text>
+                    <Text style={{ marginTop: 48, fontSize: 24, color: colors.blue, fontFamily: font.medium }}>{appName}</Text>
 
                     <Fill />
 
@@ -68,9 +68,9 @@ const SplashScreen = (props) => {
     );
 };
 
-const mapStateToProps = ({ authReducer }) => {
+const mapStateToProps = ({ profileReducer }) => {
     return {
-        // credential: authReducer.credential
+        isSessionExpired: profileReducer.isSessionExpired
     }
 }
 

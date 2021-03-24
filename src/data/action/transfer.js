@@ -19,7 +19,7 @@ export const transferInquiry = (
             dispatch({ type: TRANSFER_INQUIRY, data: inquiryTransfer });
         };
     } catch (error) {
-        console.log("TF ACT", error);
+        console.log("TRANSFER INQUIRY FAILED", error);
     }
 };
 
@@ -43,7 +43,7 @@ export const transferConfirm = (
             dispatch({ type: TRANSFER_CONFIRM, data: confirmTransfer });
         };
     } catch (error) {
-        console.log("GAGAL CONFIRM");
+        console.log("TRANSFER CONFIRM FAILED", error);
     }
 };
 
