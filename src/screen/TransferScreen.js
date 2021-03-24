@@ -70,6 +70,7 @@ const TransferScreen = (props) => {
                         disabled={
                             isRequesting ||
                             accountDestination == "" ||
+                            amount == "0" ||
                             amount == ""
                         }
                         onPress={Inquiry}>

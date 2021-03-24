@@ -24,8 +24,9 @@ const TransferStatusScreen = (props) => {
                                     <Text style={{fontFamily: font.medium, color: colors.blue}}>Mockva</Text>
                                 </View>
                                 <Image source={images.success} style={{ ...styles.imageCenter, width: 80, height: 80, marginVertical: 16 }} />
+                                <Text style={{...styles.textMediumBig, color: colors.blue, textAlign: "center"}}>Success</Text>
                                 <View style={{ ...styles.containerRow, justifyContent: "center" }}>
-                                    <Text style={{color: colors.blue, fontSize: 14, fontFamily: font.medium, textAlign: 'center'}}>{clientRef != null ? clientRef : ""}</Text>
+                                    <Text style={{fontSize: 14, fontFamily: font.medium, textAlign: 'center'}}>{clientRef != null ? clientRef : ""}</Text>
                                     <TouchableOpacity onPress={() => {
                                         Clipboard.setString(clientRef);
                                         ToastAndroid.show('Copied to clipboard', ToastAndroid.LONG)

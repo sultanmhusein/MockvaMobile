@@ -3,7 +3,7 @@ import apisauce from "apisauce";
 
 export const remote = async () => {
     const api = apisauce.create({
-        baseURL: "https://mockva.daksa.co.id/mockva-rest",
+        baseURL: Config.API_URL,
         // timeout: 1000,
         // headers: {
         //     "Content-Type": "application/json",

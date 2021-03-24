@@ -33,7 +33,7 @@ const AccountScreen = (props) => {
               <View style={{backgroundColor: colors.white, padding: 8, borderRadius: 8}}>
                 <Image source={images.qrCode} style={{ width: 80, height: 80 }} />
               </View>
-              <Text style={{color: colors.white, marginVertical: 4, fontFamily: font.medium, fontSize: 20}}>{profile != null ? profile.name : ""}</Text>
+              <Text style={{color: colors.white, marginTop: 8, fontFamily: font.medium, fontSize: 20}}>{profile != null ? profile.name : ""}</Text>
               <Text style={{color: colors.white}}>{profile != null ? profile.id : ""}</Text>
             </View>
             <SafeAreaView>

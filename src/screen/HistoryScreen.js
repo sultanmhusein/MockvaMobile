@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, FlatList, TouchableOpacity, RefreshControl } from "react-native";
 import { useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { historyGet } from "../data/action/history";
@@ -10,6 +10,7 @@ import moment from 'moment-timezone';
 const HistoryScreen = (props) => {
     const { dispatch, sessionId, accountSrcId, history } = props;
     const { colors, styles, font } = useTheme();
+    const [onRefresh, setOnRefresh] = useState(false)
 
     useEffect(() => {
         getCredential()
@@ -32,6 +33,13 @@ const HistoryScreen = (props) => {
                     padding: 4
                 }}>
                     <FlatList 
+                        refreshControl={
+                            <RefreshControl 
+                                colors={[colors.blue, colors.secondary]}
+                                refreshing={onRefresh}
+                                onRefresh={() => {dispatch(historyGet(sessionId, accountSrcId))}}
+                            />
+                        }
                         data={historyList}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({item, index}) => {

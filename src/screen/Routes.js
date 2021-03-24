@@ -96,11 +96,6 @@ const Routes = ({ initialRoute }) => {
                 component={require("./TransferStatusScreen").default}
                 options={{ headerBackTitle: "Kembali", headerTitle: "Transfer" }}
             />
-            <Stack.Screen
-                name="DetailHistory"
-                component={require("./DetailHistoryScreen").default}
-                options={{ headerShown: true, headerBackTitle: "Kembali" }}
-            />
         </Stack.Navigator>
     );
 };

@@ -44,7 +44,7 @@ const SplashScreen = (props) => {
                     <Fill />
 
                     <Animatable.View
-                        duration={300}
+                        duration={400}
                         animation="blink"
                         >
                         <Image source={images.logo} style={{ width: 160, height: 160 }} />
