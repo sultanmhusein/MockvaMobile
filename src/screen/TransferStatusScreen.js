@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, Image } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { useAppComponent, useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { connect } from "react-redux";
+import { currencyFormat } from "../../constants/helper";
 
 const TransferStatusScreen = (props) => {
     const { navigation, accountSrcId, accountSrcName, accountDstId, accountDstName, amount, transactionTimestamp, clientRef } = props;
@@ -19,42 +20,31 @@ const TransferStatusScreen = (props) => {
                 <View
                     style={{
                         flex: 1,
-                        justifyContent: "center",
-                        padding: 24,
+                        padding: 16,
                     }}>
                     <SafeAreaView>
                         <ScrollView>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Account Source</Text>
-                                <Text>{accountSrcId != null ? accountSrcId : ""}</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Account Source Name</Text>
-                                <Text>{accountSrcName != null ? accountSrcName : ""}</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Account Destination</Text>
-                                <Text>{accountDstId != null ? accountDstId : ""}</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Account Destination Name</Text>
-                                <Text>{accountDstName != null ? accountDstName : ""}</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Amount</Text>
-                                <Text>{amount != null ? amount : ""}</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Reference Number</Text>
-                                <Text>{clientRef != null ? clientRef : ""}</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Timestamp</Text>
-                                <Text>{transactionTimestamp != null ? transactionTimestamp : ""}</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Status</Text>
-                                <Text>Success</Text>
+                            <View style={{backgroundColor: "white", padding: 16, borderWidth: 2, borderColor: colors.lightgray, borderRadius: 8}}>
+                                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                    <Text>{transactionTimestamp != null ? transactionTimestamp : ""}</Text>
+                                    <Text style={{fontFamily: "PoppinsMedium", color: colors.blue}}>Mockva</Text>
+                                </View>
+                                <Image source={images.logo} style={{ width: 120, height: 120, justifyContent: 'center', alignSelf: "center", marginVertical: 16 }} />
+                                <Text style={{color: colors.blue, fontSize: 14, fontFamily: "PoppinsMedium", textAlign: 'center'}}>{clientRef != null ? clientRef : ""}</Text>
+                                <View style={{flexDirection: 'column', justifyContent: "space-between", marginBottom: 8, borderBottomWidth: 0.5, borderColor: colors.blue}}>
+                                    <Text>Send From</Text>
+                                    <Text style={{fontSize: 20, fontFamily: "PoppinsMedium"}}>{accountSrcName != null ? accountSrcName : ""}</Text>
+                                    <Text style={{fontSize: 16}}>Mockva - {accountSrcId != null ? accountSrcId : ""}</Text>
+                                </View>
+                                <View style={{flexDirection: 'column', justifyContent: "space-between", borderBottomWidth: 0.5, borderColor: colors.blue}}>
+                                    <Text>Send To</Text>
+                                    <Text style={{fontSize: 20, fontFamily: "PoppinsMedium"}}>{accountDstName != null ? accountDstName : ""}</Text>
+                                    <Text style={{fontSize: 16}}>Mockva - {accountDstId != null ? accountDstId : ""}</Text>
+                                </View>
+                                <View style={{flexDirection: 'column', justifyContent: "space-between", marginTop: 8}}>
+                                    <Text>Amount</Text>
+                                    <Text style={{fontSize: 32, fontFamily: "PoppinsMedium", color: colors.blue}}>{amount != null ? currencyFormat(parseInt(amount)) : "0"}</Text>
+                                </View>
                             </View>
                         </ScrollView>
                     </SafeAreaView>
@@ -62,20 +52,11 @@ const TransferStatusScreen = (props) => {
                         mode="contained"
                         color={colors.blue}
                         style={{ marginTop: 8 }}
-                        // loading={isRequesting}
-                        // disabled={
-                        //     isRequesting ||
-                        //     accountSource == "" ||
-                        //     accountSourceName == "" ||
-                        //     accountDestination == "" ||
-                        //     accountDestinationName == "" ||
-                        //     amount == "amount"
-                        // }
                         onPress={() => navigation.reset({
                             index: 0,
                             routes: [{ name: 'Main' }],
                         })}>
-                        Confirm
+                        Ok
                     </Button>
                 </View>
             }

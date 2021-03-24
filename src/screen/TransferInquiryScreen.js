@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
-import { Button } from "react-native-paper";
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, Image } from "react-native";
+import { Button, TextInput } from "react-native-paper";
 import { useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { connect } from "react-redux";
 import { transferClear, transferConfirm } from "../data/action/transfer";
 import { AlertMessageReset } from "../components/AlertMessage";
+import { currencyFormat } from "../../constants/helper";
 
 const TransferInquiryScreen = (props) => {
     const { navigation, dispatch, sessionId, accountSrcId, accountSrcName, accountDstId, accountDstName, amount, inquiryId, transferInq } = props;
@@ -26,7 +27,6 @@ const TransferInquiryScreen = (props) => {
     useEffect(() => {
         setRequesting(false)
         if (transferInq == null) {
-            // dispatch(transferClear())
             AlertMessageReset('Failed', "Account Not Found", () => {
                 navigation.reset({
                     index: 0,
@@ -43,49 +43,58 @@ const TransferInquiryScreen = (props) => {
                 <View
                     style={{
                         flex: 1,
-                        justifyContent: "center",
-                        padding: 24,
+                        padding: 16,
                     }}>
                     <SafeAreaView>
                         <ScrollView>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Account Source</Text>
-                                <Text>{accountSrcId != null ? accountSrcId : ""}</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Account Source Name</Text>
-                                <Text>{accountSrcName != null ? accountSrcName : ""}</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Account Destination</Text>
-                                <Text>{accountDstId != null ? accountDstId : ""}</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Account Destination Name</Text>
-                                <Text>{accountDstName != null ? accountDstName : ""}</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                                <Text>Amount</Text>
-                                <Text>{amount != null ? amount : ""}</Text>
+                            <View style={{backgroundColor: "white", padding: 16, borderWidth: 2, borderColor: colors.lightgray, borderRadius: 8}}>
+                                <Text style={{color: colors.blue, fontSize: 20, fontFamily: "PoppinsMedium", textAlign: 'center'}}>Confirm Transfer</Text>
+                                <Image source={images.logo} style={{ width: 120, height: 120, justifyContent: 'center', alignSelf: "center", marginVertical: 16 }} />
+                                <View style={{flexDirection: 'column', justifyContent: "space-between", marginBottom: 8, borderBottomWidth: 0.5, borderColor: colors.blue}}>
+                                    <Text>Send From</Text>
+                                    <Text style={{fontSize: 20, fontFamily: "PoppinsMedium"}}>{accountSrcName != null ? accountSrcName : ""}</Text>
+                                    <Text style={{fontSize: 16}}>Mockva - {accountSrcId != null ? accountSrcId : ""}</Text>
+                                </View>
+                                <View style={{flexDirection: 'column', justifyContent: "space-between", borderBottomWidth: 0.5, borderColor: colors.blue}}>
+                                    <Text>Send To</Text>
+                                    <Text style={{fontSize: 20, fontFamily: "PoppinsMedium"}}>{accountDstName != null ? accountDstName : ""}</Text>
+                                    <Text style={{fontSize: 16}}>Mockva - {accountDstId != null ? accountDstId : ""}</Text>
+                                </View>
+                                <View style={{flexDirection: 'column', justifyContent: "space-between", marginTop: 8}}>
+                                    <Text>Amount</Text>
+                                    <Text style={{fontSize: 32, fontFamily: "PoppinsMedium", color: colors.blue}}>{amount != null ? currencyFormat(parseInt(amount)) : "0"}</Text>
+                                </View>
                             </View>
                         </ScrollView>
                     </SafeAreaView>
-                    <Button
-                        mode="contained"
-                        color={colors.blue}
-                        style={{ marginTop: 8 }}
-                        // loading={isRequesting}
-                        // disabled={
-                        //     isRequesting ||
-                        //     accountSource == "" ||
-                        //     accountSourceName == "" ||
-                        //     accountDestination == "" ||
-                        //     accountDestinationName == "" ||
-                        //     amount == "amount"
-                        // }
-                        onPress={Transfer}>
-                        Confirm
-                    </Button>
+                    <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                        <Button
+                            mode="outlined"
+                            color={colors.blue}
+                            style={{ marginTop: 8, width: '45%', marginRight: '5%' }}
+                            onPress={() => {navigation.reset({
+                                index: 0,
+                                routes: [{name: 'Main'}],
+                            })}}>
+                            Cancel
+                        </Button>
+                        <Button
+                            mode="contained"
+                            color={colors.blue}
+                            style={{ marginTop: 8, width: '45%' }}
+                            loading={isRequesting}
+                            disabled={
+                                isRequesting ||
+                                accountSrcId == "" ||
+                                accountSrcName == "" ||
+                                accountDstId == "" ||
+                                accountDstName == "" ||
+                                amount == "0"
+                            }
+                            onPress={Transfer}>
+                            Transfer
+                        </Button>
+                    </View>
                 </View>
             }
         />
