@@ -18,6 +18,7 @@ const LoginScreen = (props) => {
     const Login = async () => {
         setRequesting(true);
         await dispatch(authLogin(username, password))
+        setRequesting(false);
     }
 
     useEffect(() => {

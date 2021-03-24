@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, Image, SafeAreaView, ScrollView, Alert } from "react-native";
+import { View, Text, Image, SafeAreaView, ScrollView } from "react-native";
 import { useTheme } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { profileGet } from "../data/action/profile";
@@ -7,31 +7,12 @@ import { currencyFormat } from "../../constants/helper";
 import { connect } from "react-redux";
 
 const MainScreen = (props) => {
-    const { navigation, profile, dispatch, accountId, sessionId, isSessionExpired } = props;
+    const { profile, dispatch, accountId, sessionId } = props;
     const { colors, images, styles, font } = useTheme();
     
     useEffect(() => {
       getCredential()
     }, [])
-
-    console.log("SSES", isSessionExpired)
-
-    // useEffect(() => {
-    //   if (isSessionExpired == true) {
-    //     Alert.alert('Session Expired', "Please login again", [
-    //       {
-            
-    //       },
-    //       {
-    //         text: 'Yes',
-    //         onPress: () => {
-    //           dispatch(authLogout());
-    //           navigation.replace('Login');
-    //         },
-    //       },
-    //     ]);
-    //     }
-    // }, [])
 
     const getCredential = async () => {
         if (sessionId != null && accountId != null) {
@@ -49,8 +30,8 @@ const MainScreen = (props) => {
                 <ScrollView>
                   <View style={{backgroundColor: 'white', marginBottom: 8, borderBottomLeftRadius: 8, borderBottomRightRadius: 8}}>
                     <View style={{ marginHorizontal: '2.5%', backgroundColor: colors.white, marginTop: 4 }}>
-                      <Text style={{fontSize: 18, fontFamily: font.medium}}>Hello {profile != null ? profile.name : ""}</Text>
-                      <Text style={{fontSize: 18, fontFamily: font.medium}}>Welcome Back</Text>
+                      <Text style={{fontSize: 18, fontFamily: font.medium}}>Hello, {profile != null ? profile.name : ""}</Text>
+                      <Text style={{fontSize: 18, fontFamily: font.medium}}>Welcome Back!</Text>
                     </View>
                     <View style={{ backgroundColor: colors.blue, padding: 16, borderRadius: 16, marginVertical: 8, marginHorizontal: '2.5%' }}>
                       <View style={{flexDirection: 'row', justifyContent: "space-between", alignItems: "center"}}>
@@ -135,7 +116,6 @@ const mapStateToProps = ({ authReducer, profileReducer }) => {
         sessionId: authReducer.sessionId,
         accountId: authReducer.accountId,
         profile: profileReducer.profile,
-        isSessionExpired: profileReducer.isSessionExpired
     }
 }
 

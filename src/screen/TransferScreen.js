@@ -25,12 +25,10 @@ const TransferScreen = (props) => {
             AlertMessage("Failed", "Please complete all forms")
         }
         setRequesting(true);
-        await dispatch(transferInquiry(sessionId, accountSrcId, accountDestination, amount))
+        await dispatch(transferInquiry(sessionId, accountSrcId, accountDestination, amount.replace(/[\D]/g, '')))
         setRequesting(false);
         navigation.navigate("TransferInquiry")
     }
-    console.log("AMOUNT", amount)
-    console.log("PARSE", amount.replace(/[\D]/g, ''))
 
     return (
         <Scaffhold

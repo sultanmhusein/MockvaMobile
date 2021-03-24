@@ -5,9 +5,9 @@ export const remote = async () => {
     const api = apisauce.create({
         baseURL: "https://mockva.daksa.co.id/mockva-rest",
         // timeout: 1000,
-        headers: {
-            "Content-Type": "application/json",
-        },
+        // headers: {
+        //     "Content-Type": "application/json",
+        // },
     });
     // auth
     const authLogin = (username, password) =>

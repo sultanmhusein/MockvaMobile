@@ -54,7 +54,7 @@ const HistoryScreen = (props) => {
                                     </View>
                                     <View style={{ ...styles.containerRow, justifyContent: "space-between" }}>
                                         <Text style={{color: colors.darkgray, fontSize: 12}}>{date}{' '}{timeOnly}</Text>
-                                        <Text style={{color: colors.darkgray, fontFamily: font.medium}}>{item.accountDstId}</Text>
+                                        <Text style={{color: colors.darkgray, fontFamily: font.medium, fontSize: 12}}>{item.accountDstId}</Text>
                                     </View>
                                 </TouchableOpacity>
                             )

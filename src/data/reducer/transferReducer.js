@@ -16,16 +16,12 @@ const initialState = {
 const transferReducer = (state = initialState, action) => {
     switch (action.type) {
         case TRANSFER_INQUIRY:
-            // console.log("REDUCER", action.data.status)
             if (action.data.status != 200) {
-                    console.log("HASIL", action.data)
-                    return {
-                        ...state,
-                        messageError: action.data.data,
-                    }
+                return {
+                    ...state,
+                    messageError: action.data.data,
+                }
             } else {
-                // console.log("INQ MUNCUL", action.data.data)
-                console.log("INQ MUNCUL", action.data)
                 return {
                     ...state,
                     accountSrcId: action.data.data.accountSrcId,
@@ -38,15 +34,9 @@ const transferReducer = (state = initialState, action) => {
                 }
             }
         case TRANSFER_CONFIRM:
-            console.log("TF CF", action.data.data)
             if (action.data.status != 200) {
-                console.log("****")
-                // return {
-                //     ...state,
-                //     message: "GAGAL INQ CFR :("
-                // }
+                return state;
             } else {
-                console.log("INQ CFR MUNCUL", action.data.data)
                 return {
                     ...state,
                     transactionTimestamp: action.data.data.transactionTimestamp,

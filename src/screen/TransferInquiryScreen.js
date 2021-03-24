@@ -20,7 +20,6 @@ const TransferInquiryScreen = (props) => {
             await dispatch(transferConfirm(sessionId, accountSrcId, accountDstId, amount, inquiryId))
             setRequesting(false);
             navigation.replace("TransferStatus")
-            console.log("BERHASIL", inquiryId)
         }
     }
 

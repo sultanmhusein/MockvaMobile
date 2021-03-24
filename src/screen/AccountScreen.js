@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity, Alert } from "react-native";
-import { useTheme } from "../Contexts";
+import { useTheme, useAppComponent } from "../Contexts";
 import Scaffhold from "../components/Scaffhold";
 import { authLogout } from "../data/action/auth";
 import { connect } from "react-redux";
@@ -8,8 +8,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const AccountScreen = (props) => {
     const { navigation, dispatch, profile } = props;
-    const { colors, images, styles } = useTheme();
-  console.log("PROF", profile)
+    const { colors, images, styles, font } = useTheme();
+    const { appVersion } = useAppComponent();
     const confirmationLogout = () => 
       Alert.alert('Logout', "Are you sure want to logout?", [
         {
@@ -33,7 +33,7 @@ const AccountScreen = (props) => {
               <View style={{backgroundColor: colors.white, padding: 8, borderRadius: 8}}>
                 <Image source={images.qrCode} style={{ width: 80, height: 80 }} />
               </View>
-              <Text style={{color: colors.white, marginVertical: 8}}>{profile != null ? profile.name : ""}</Text>
+              <Text style={{color: colors.white, marginVertical: 4, fontFamily: font.medium, fontSize: 20}}>{profile != null ? profile.name : ""}</Text>
               <Text style={{color: colors.white}}>{profile != null ? profile.id : ""}</Text>
             </View>
             <SafeAreaView>
@@ -51,17 +51,17 @@ const AccountScreen = (props) => {
                   <TouchableOpacity>
                     <View style={styles.accountContainerItem}>
                       <View style={styles.containerRow}>
-                      <Icon name="information-outline" size={24} color={colors.blue} />
-                        <Text style={{marginLeft: 12}}>About</Text>
+                        <Icon name="cellphone-information" size={24} color={colors.blue} />
+                        <Text style={{marginLeft: 12}}>App Version</Text>
                       </View>
-                      <Icon name="chevron-right" size={20} />
+                      <Text>{appVersion}</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity>
                     <View style={styles.accountContainerItem}>
                       <View style={styles.containerRow}>
-                        <Icon name="cellphone-information" size={24} color={colors.blue} />
-                        <Text style={{marginLeft: 12}}>App Version</Text>
+                      <Icon name="information-outline" size={24} color={colors.blue} />
+                        <Text style={{marginLeft: 12}}>About</Text>
                       </View>
                       <Icon name="chevron-right" size={20} />
                     </View>

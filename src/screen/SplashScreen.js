@@ -9,7 +9,7 @@ import { getCredential } from "../data/local/storage";
 import { setCredential } from "../data/action/auth";
 
 const SplashScreen = (props) => {
-    const { navigation, dispatch, isSessionExpired } = props;
+    const { navigation, dispatch } = props;
     const { appVersion, appName } = useAppComponent();
     const { colors, images, font } = useTheme();
 
@@ -68,9 +68,10 @@ const SplashScreen = (props) => {
     );
 };
 
-const mapStateToProps = ({ profileReducer }) => {
+const mapStateToProps = ({ authReducer }) => {
     return {
-        isSessionExpired: profileReducer.isSessionExpired
+        sessionId: authReducer.sessionId,
+        accountId: authReducer.accountId,
     }
 }
 
